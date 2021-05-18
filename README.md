@@ -10,5 +10,6 @@ Some things I want to achieve:
 6. some information about the location of the event
 7. I want to create a aethetically pleasing scroll functionality   to search through the DJs/Events instead of a simple dropdown
 8. Link of where to buy tickets 
+9. The ability to sign in and add which events you're going to/want to go to a list.
 
 A lot of these things I'm really not sure how to gather the data besides pulling it manually but I know theres a way to search through event pages and grab info. I'll figure that out when the time comes. 
