@@ -1,16 +1,16 @@
 import React from 'react'
 
-const ArtistInfo = () => {
+const ArtistInfo = ({ event }) => {
     return (
         <div className="artistInfo">
             <div>
-                <p>Artists</p>
+                <p>{event.artist}</p>
             </div>
             <div>
-                <p>Date</p>
+                <p>{event.date}</p>
             </div>
             <div>
-                <p>Location</p>
+                <p>{event.location}</p>
             </div>
         </div>
     )
