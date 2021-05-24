@@ -13,3 +13,9 @@ Some things I want to achieve:
 9. The ability to sign in and add which events you're going to/want to go to a list.
 
 A lot of these things I'm really not sure how to gather the data besides pulling it manually but I know theres a way to search through event pages and grab info. I'll figure that out when the time comes. 
+
+fuck this idea
+
+new idea
+
+mosaic. left side is full album artwork, right side is mosaic 
