@@ -24,7 +24,7 @@ app.post("/refresh", (req, res) => {
       })
     })
     .catch(err => {
-      console.log(err)
+      console.log("hello3")
       res.sendStatus(400)
     })
 })
@@ -45,12 +45,13 @@ app.post("/login", (req, res) => {
         refreshToken: data.body.refresh_token,
         expiresIn: data.body.expires_in,
       })
-      res.status(200).send(message.sid)
     })
     .catch(err => {
+      console.log("hello4")
       res.sendStatus(400)
     })
 })
+
 
 app.listen(3001)
 

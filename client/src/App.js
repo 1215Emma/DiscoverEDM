@@ -15,7 +15,6 @@ const App = () => {
         <div className="container">
             <div className='Header'>
                 <Header />
-                <LandingSearch />
                 {code ? <LandingSearch code={code} /> : <Login />}
             </div>
             
