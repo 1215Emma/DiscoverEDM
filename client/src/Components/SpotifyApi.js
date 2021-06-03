@@ -1,16 +1,15 @@
 import SpotifyWebApi from 'spotify-web-api-node'
-import useAuth from './useAuth'
+// import useAuth from './useAuth'
 const spotifyApi = new SpotifyWebApi({
     clientId: "c0024b0181434c5c848e7f5bf8a7afe0",
 })
 
-export const SearchAlbum = (AT, { code }) => {
-    AT = useAuth(code)
-    console.log(AT)
-    let cancel = false
+
+export const SearchAlbum = (accessToken, search) => {
+    spotifyApi.setAccessToken(accessToken)
     return spotifyApi.searchAlbums(search, { limit: 50 }).then(res => {
-        if (cancel) return
-        (res.body.albums.items.map(album => {
+
+        return res.body.albums.items.map(album => {
             const smallestAlbumImage = album.images.reduce((smallest, image) => {
                 if (image.height < smallest.height) return image
                 return smallest
@@ -25,6 +24,6 @@ export const SearchAlbum = (AT, { code }) => {
             else {
                 return null
             }
-        }))
+        }).filter(item => item != null)
     })
 }
