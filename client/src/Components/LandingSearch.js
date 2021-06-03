@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import SpotifyWebApi from 'spotify-web-api-node'
 import useAuth from './useAuth'
-import TrackSearchResult from './TrackSearchResult'
+import { SearchAlbums, SearchTracks } from './TrackSearchResult'
+import { SearchAlbum } from './SpotifyApi'
 const spotifyApi = new SpotifyWebApi({
     clientId: "c0024b0181434c5c848e7f5bf8a7afe0",
 })
@@ -22,32 +23,12 @@ export default function LandingSearch({ code }) {
         if (!search) return setAlbumsResults([])
         if (!accessToken) return
 
-        let cancel = false
-        spotifyApi.searchAlbums(search, { limit: 50 }).then(res => {
-            console.log(res.body.albums.items)
-            if (cancel) return
-            setAlbumsResults
-                (res.body.albums.items.map(album => {
-                    const smallestAlbumImage = album.images.reduce((smallest, image) => {
-                        if (image.height < smallest.height) return image
-                        return smallest
-                    }, album.images[0]);
+        const albums = SearchAlbum();
+        setAlbumsResults(albums)
 
-                    if (album.album_type === "album" && album.artists[0].name.toLowerCase().includes(search.toLowerCase())) {
-                        return {
-                            albumUrl: smallestAlbumImage.url,
-                            album: album.name,
-                        }
-                    }
-                    else {
-                        return null
-                    }
-                }).filter(item => item != null))
-        })
-        return () => cancel = true
     }, [search, accessToken])
 
-    useEffect(() => {
+    useEffect(async () => {
         if (!search) return setTracksResults([])
         if (!accessToken) return
 
@@ -58,19 +39,18 @@ export default function LandingSearch({ code }) {
         let songArr = [];
         while (hasNext && limit > 0) {
             limit--
-            spotifyApi.searchTracks(search, { limit: 50, offset: Offset }).then(res => {
-                if (cancel) return
-                songArr.push(...res.body.tracks.items)
-                Offset += 50
-                if (res.body.tracks.total <= Offset) {
-                    hasNext = false
-                }
-            })
+            const res = await spotifyApi.searchTracks(search, { limit: 50, offset: Offset });
+            if (cancel) return
+            songArr.push(...res.body.tracks.items)
+            Offset += 50
+            if (res.body.tracks.total <= Offset) {
+                hasNext = false
+            }
+
         }
-        console.log(songArr)
         setTracksResults
             (songArr.map(track => {
-                if (track.album.album_type === "album" && track.artists[0].name.toLowerCase().includes(search.toLowerCase())) {
+                if (track.album.album_type === "album" && track.artists[0].name.toLowerCase().includes(search.toLowerCase()) && !track.name.includes("Remix", "Remixes") && !track.album.name.includes("Remixes", "Live", "Remix")) {
                     return {
                         artist: track.artists[0].name,
                         title: track.name,
@@ -83,6 +63,7 @@ export default function LandingSearch({ code }) {
                     return null
                 }
             }).filter(item => item != null))
+        console.log(searchTracks)
         return () => cancel = true
     }, [search, accessToken])
 
@@ -95,11 +76,11 @@ export default function LandingSearch({ code }) {
 
                 <div className='searchResults'>
 
-                    {searchAlbums.map(track => (
-                        <TrackSearchResult track={track} key={track.album.name} />
+                    {searchAlbums.map(album => (
+                        <SearchAlbums album={album} key={album.albumUrl} />
                     ))}
                     {searchTracks.map(track => (
-                        <TrackSearchResult track={track} key={track.id} />
+                        <SearchTracks track={track} key={track.id} />
                     ))}
                 </div>
             </div>
