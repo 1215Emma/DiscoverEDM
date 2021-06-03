@@ -20,10 +20,11 @@ export default function LandingSearch({ code }) {
     }, [accessToken])
 
     useEffect(() => {
+        const AT = spotifyApi.setAccessToken(accessToken)
         if (!search) return setAlbumsResults([])
         if (!accessToken) return
 
-        const albums = SearchAlbum();
+        const albums = SearchAlbum(AT);
         setAlbumsResults(albums)
 
     }, [search, accessToken])

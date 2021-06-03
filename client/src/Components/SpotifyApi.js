@@ -1,10 +1,12 @@
-
 import SpotifyWebApi from 'spotify-web-api-node'
+import useAuth from './useAuth'
 const spotifyApi = new SpotifyWebApi({
     clientId: "c0024b0181434c5c848e7f5bf8a7afe0",
 })
 
-export function SearchAlbum() {
+export const SearchAlbum = (AT, { code }) => {
+    AT = useAuth(code)
+    console.log(AT)
     let cancel = false
     return spotifyApi.searchAlbums(search, { limit: 50 }).then(res => {
         if (cancel) return
