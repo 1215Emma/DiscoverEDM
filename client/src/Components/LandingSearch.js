@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import SpotifyWebApi from 'spotify-web-api-node'
 import useAuth from './useAuth'
-// re-add SearchTracks when you debug SearchAlbums
-import { SearchAlbums } from './TrackSearchResult'
-import { SearchAlbum } from './SpotifyApi'
+import { SearchAlbums, SearchTracks } from './TrackSearchResult'
+import { SearchAlbum, SearchTrack } from '../api/SpotifyApi'
 const spotifyApi = new SpotifyWebApi({
     clientId: "c0024b0181434c5c848e7f5bf8a7afe0",
 })
@@ -14,61 +13,56 @@ export default function LandingSearch({ code }) {
 
     const [search, setSearch] = useState('')
     const [searchAlbums, setAlbumsResults] = useState([])
-    // const [searchTracks, setTracksResults] = useState([])
-
+    const [searchTracks, setTracksResults] = useState([])
+    
+    // This makes sure that we always have an access token.
     useEffect(() => {
         if (!accessToken) return
         spotifyApi.setAccessToken(accessToken)
     }, [accessToken])
-
+    // This pulls albums only from an artist you search and returns the album cover image.
     useEffect(() => {
         async function fetchData() {
             if (!search) return setAlbumsResults([])
             if (!accessToken) return
-
             const albums = await SearchAlbum(accessToken, search);
+            console.log(albums)
             setAlbumsResults(albums)
         }
         fetchData()
     }, [search, accessToken])
-    console.log(searchAlbums)
-    // useEffect(async () => {
-    //     if (!search) return setTracksResults([])
-    //     if (!accessToken) return
+    
+    // This pulls all the songs that are attached to specific albums. 
+    // I used a while loop because each api request would only give 50 results and useState was just over-writing what was pulled. So I had to pull and push them into an empty array before the next pull. 
+    useEffect(() => {
+        if (!search) return setTracksResults([])
+        if (!accessToken) return
+        async function fetchData() {
+            let cancel = true
+            let hasNext = true
+            let Offset = 0;
+            let limit = 5;
+            const songArr = [];
+            while (hasNext && limit > 0) {
+                limit--
+                const res = await spotifyApi.searchTracks(search, { limit: 50, offset: Offset })
+                if (cancel === true) {
+                    songArr.push(res.body.tracks.items)
+                    Offset += 50
+                }
+                if (res.body.tracks.total <= Offset) {
+                    hasNext = false
+                    cancel = false
+                }
+            }
+            const mergedSongArr = [].concat.apply([], songArr)
+            console.log(mergedSongArr)
+            const tracks = await SearchTrack(mergedSongArr, search)
+            setTracksResults(tracks)
+        }
+        fetchData()
+    }, [search, accessToken])
 
-    //     let cancel = false
-    //     let hasNext = true
-    //     let Offset = 0;
-    //     let limit = 5;
-    //     let songArr = [];
-    //     while (hasNext && limit > 0) {
-    //         limit--
-    //         const res = await spotifyApi.searchTracks(search, { limit: 50, offset: Offset });
-    //         if (cancel) return
-    //         songArr.push(...res.body.tracks.items)
-    //         Offset += 50
-    //         if (res.body.tracks.total <= Offset) {
-    //             hasNext = false
-    //         }
-
-    //     }
-    //     setTracksResults
-    //         (songArr.map(track => {
-    //             if (track.album.album_type === "album" && track.artists[0].name.toLowerCase().includes(search.toLowerCase()) && !track.name.includes("Remix", "Remixes") && !track.album.name.includes("Remixes", "Live", "Remix")) {
-    //                 return {
-    //                     artist: track.artists[0].name,
-    //                     title: track.name,
-    //                     id: track.id,
-    //                     albumType: track.album.album_type,
-    //                     album: track.album.name,
-    //                 }
-    //             }
-    //             else {
-    //                 return null
-    //             }
-    //         }).filter(item => item != null))
-    //     return () => cancel = true
-    // }, [search, accessToken])
 
     return (
         <form className='FormBox'>
@@ -82,9 +76,9 @@ export default function LandingSearch({ code }) {
                     {searchAlbums.map(album => (
                         <SearchAlbums album={album} key={album.albumUrl} />
                     ))}
-                    {/* {searchTracks.map(track => (
+                    {searchTracks.map(track => (
                         <SearchTracks track={track} key={track.id} />
-                    ))} */}
+                    ))}
                 </div>
             </div>
         </form>
