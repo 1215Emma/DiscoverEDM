@@ -28,10 +28,11 @@ export const SearchAlbum = (accessToken, search) => {
 }
 
 // grabs the array [mergedSongArr] that we pushed all the data from the api pull into and maps through it and returns the info we want 
-export const SearchTrack = (mergedSongArr, search) => {
+export const SearchTrack = (mergedSongArr, search, searchAlbums) => {
     return mergedSongArr.map(track => {
         if (track.album.album_type === "album" && track.artists[0].name.toLowerCase().includes(search.toLowerCase()) && !track.name.includes("Remix", "Remixes") && !track.album.name.includes("Remixes", "Live", "Remix")) {
             return {
+                albumUrl: searchAlbums.albumUrl,
                 artist: track.artists[0].name,
                 title: track.name,
                 id: track.id,

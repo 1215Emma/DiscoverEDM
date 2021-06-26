@@ -3,6 +3,7 @@ import SpotifyWebApi from 'spotify-web-api-node'
 import useAuth from './useAuth'
 import { SearchAlbums, SearchTracks } from './TrackSearchResult'
 import { SearchAlbum, SearchTrack } from '../api/SpotifyApi'
+import _ from 'underscore'
 const spotifyApi = new SpotifyWebApi({
     clientId: "c0024b0181434c5c848e7f5bf8a7afe0",
 })
@@ -14,7 +15,7 @@ export default function LandingSearch({ code }) {
     const [search, setSearch] = useState('')
     const [searchAlbums, setAlbumsResults] = useState([])
     const [searchTracks, setTracksResults] = useState([])
-    
+
     // This makes sure that we always have an access token.
     useEffect(() => {
         if (!accessToken) return
@@ -26,12 +27,11 @@ export default function LandingSearch({ code }) {
             if (!search) return setAlbumsResults([])
             if (!accessToken) return
             const albums = await SearchAlbum(accessToken, search);
-            console.log(albums)
             setAlbumsResults(albums)
         }
         fetchData()
     }, [search, accessToken])
-    
+
     // This pulls all the songs that are attached to specific albums. 
     // I used a while loop because each api request would only give 50 results and useState was just over-writing what was pulled. So I had to pull and push them into an empty array before the next pull. 
     useEffect(() => {
@@ -56,14 +56,18 @@ export default function LandingSearch({ code }) {
                 }
             }
             const mergedSongArr = [].concat.apply([], songArr)
-            console.log(mergedSongArr)
-            const tracks = await SearchTrack(mergedSongArr, search)
-            setTracksResults(tracks)
+            const tracks = await SearchTrack(mergedSongArr, search, searchAlbums)
+            const newCombine = searchAlbums.map(combine => (
+                tracks.filter(c => c.album === combine.album)))
+            let finalCombine = [].concat.apply([], newCombine)
+            finalCombine = [...searchAlbums, ...finalCombine]
+            finalCombine = _.groupBy(finalCombine, "album")
+            setTracksResults(finalCombine)
         }
         fetchData()
-    }, [search, accessToken])
-
-
+    }, [search, accessToken, searchAlbums])
+    console.log(searchTracks)
+    console.log(searchAlbums)
     return (
         <form className='FormBox'>
             <div className='LandingSearch'>
@@ -76,9 +80,9 @@ export default function LandingSearch({ code }) {
                     {searchAlbums.map(album => (
                         <SearchAlbums album={album} key={album.albumUrl} />
                     ))}
-                    {searchTracks.map(track => (
+                    {/* {searchTracks.map(track => (
                         <SearchTracks track={track} key={track.id} />
-                    ))}
+                    ))} */}
                 </div>
             </div>
         </form>
