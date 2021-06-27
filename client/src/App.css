@@ -73,3 +73,12 @@ html {
     background-size: 100%;
     border-radius: 16px;
 }
+
+.ArtistCards {
+    display: flex; 
+}
+
+.ArtistCards .AlbumImage {
+    order: 1;
+    margin-top: 2rem;
+}

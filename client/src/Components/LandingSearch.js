@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import SpotifyWebApi from 'spotify-web-api-node'
 import useAuth from './useAuth'
-import { SearchAlbums, SearchTracks } from './TrackSearchResult'
+import { SearchTracks } from './TrackSearchResult'
 import { SearchAlbum, SearchTrack } from '../api/SpotifyApi'
 import _ from 'underscore'
 const spotifyApi = new SpotifyWebApi({
@@ -56,18 +56,19 @@ export default function LandingSearch({ code }) {
                 }
             }
             const mergedSongArr = [].concat.apply([], songArr)
-            const tracks = await SearchTrack(mergedSongArr, search, searchAlbums)
+            console.log(mergedSongArr)
+            const tracks = await SearchTrack(mergedSongArr)
             const newCombine = searchAlbums.map(combine => (
                 tracks.filter(c => c.album === combine.album)))
             let finalCombine = [].concat.apply([], newCombine)
             finalCombine = [...searchAlbums, ...finalCombine]
             finalCombine = _.groupBy(finalCombine, "album")
+            finalCombine = Object.values(finalCombine)
+            finalCombine = [].concat.apply([], finalCombine)
             setTracksResults(finalCombine)
         }
         fetchData()
     }, [search, accessToken, searchAlbums])
-    console.log(searchTracks)
-    console.log(searchAlbums)
     return (
         <form className='FormBox'>
             <div className='LandingSearch'>
@@ -76,13 +77,9 @@ export default function LandingSearch({ code }) {
 
 
                 <div className='searchResults'>
-
-                    {searchAlbums.map(album => (
-                        <SearchAlbums album={album} key={album.albumUrl} />
-                    ))}
-                    {/* {searchTracks.map(track => (
+                    {searchTracks.map(track => (
                         <SearchTracks track={track} key={track.id} />
-                    ))} */}
+                    ))}
                 </div>
             </div>
         </form>

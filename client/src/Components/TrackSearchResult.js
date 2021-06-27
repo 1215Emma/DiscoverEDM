@@ -12,9 +12,11 @@ export function SearchAlbums({ album }) {
 export function SearchTracks({ track }) {
     return (
         <div className='ArtistCards'>
+            <div className="AlbumImage">
+                <img src={track.albumUrl} alt="album cover" />
+            </div>
             <div className='SongName'>{track.title}</div>
             <div className='ArtistName'>{track.artist}</div>
-            <div className='AlbumName'>{track.album}</div>
         </div>
     )
 }

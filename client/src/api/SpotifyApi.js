@@ -9,14 +9,15 @@ export const SearchAlbum = (accessToken, search) => {
     return spotifyApi.searchAlbums(search, { limit: 50 }).then(res => {
 
         return res.body.albums.items.map(album => {
-            const smallestAlbumImage = album.images.reduce((smallest, image) => {
-                if (image.height < smallest.height) return image
-                return smallest
+            const largestAlbumImage = album.images.reduce((largest, image) => {
+                if (image.height > largest.height) return image
+                return largest
             }, album.images[0]);
 
             if (album.album_type === "album" && album.artists[0].name.toLowerCase().includes(search.toLowerCase()) && !album.name.includes("Remix")) {
                 return {
-                    albumUrl: smallestAlbumImage.url,
+                    id: album.id,
+                    albumUrl: largestAlbumImage.url,
                     album: album.name,
                 }
             }
@@ -28,20 +29,15 @@ export const SearchAlbum = (accessToken, search) => {
 }
 
 // grabs the array [mergedSongArr] that we pushed all the data from the api pull into and maps through it and returns the info we want 
-export const SearchTrack = (mergedSongArr, search, searchAlbums) => {
+export const SearchTrack = (mergedSongArr) => {
     return mergedSongArr.map(track => {
-        if (track.album.album_type === "album" && track.artists[0].name.toLowerCase().includes(search.toLowerCase()) && !track.name.includes("Remix", "Remixes") && !track.album.name.includes("Remixes", "Live", "Remix")) {
-            return {
-                albumUrl: searchAlbums.albumUrl,
-                artist: track.artists[0].name,
-                title: track.name,
-                id: track.id,
-                albumType: track.album.album_type,
-                album: track.album.name,
-            }
-        }
-        else {
-            return null
+
+        return {
+            artist: track.artists[0].name,
+            title: track.name,
+            id: track.id,
+            albumType: track.album.album_type,
+            album: track.album.name,
         }
     }).filter(item => item != null)
 }
