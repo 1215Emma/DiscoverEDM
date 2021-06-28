@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import SpotifyWebApi from 'spotify-web-api-node'
-import useAuth from './useAuth'
-import { SearchTracks } from './TrackSearchResult'
+import useAuth from '../TokensAndLogin/useAuth'
+import { SearchTracks } from '../Components/TrackSearchResult'
 import { SearchAlbum, SearchTrack } from '../api/SpotifyApi'
 import _ from 'underscore'
+
 const spotifyApi = new SpotifyWebApi({
     clientId: "c0024b0181434c5c848e7f5bf8a7afe0",
 })
@@ -11,7 +12,7 @@ const spotifyApi = new SpotifyWebApi({
 export default function LandingSearch({ code }) {
 
     const accessToken = useAuth(code)
-
+    if (accessToken != null) { localStorage.setItem("access token", accessToken) }
     const [search, setSearch] = useState('')
     const [searchAlbums, setAlbumsResults] = useState([])
     const [searchTracks, setTracksResults] = useState([])
@@ -56,7 +57,6 @@ export default function LandingSearch({ code }) {
                 }
             }
             const mergedSongArr = [].concat.apply([], songArr)
-            console.log(mergedSongArr)
             const tracks = await SearchTrack(mergedSongArr)
             const newCombine = searchAlbums.map(combine => (
                 tracks.filter(c => c.album === combine.album)))
@@ -69,6 +69,7 @@ export default function LandingSearch({ code }) {
         }
         fetchData()
     }, [search, accessToken, searchAlbums])
+    console.log(searchTracks)
     return (
         <form className='FormBox'>
             <div className='LandingSearch'>
@@ -77,9 +78,15 @@ export default function LandingSearch({ code }) {
 
 
                 <div className='searchResults'>
+
+                    {/* {searchAlbums.map(album => (
+                        <SearchAlbums album={album} key={album.id} />
+                    ))} */}
+
                     {searchTracks.map(track => (
                         <SearchTracks track={track} key={track.id} />
                     ))}
+                    
                 </div>
             </div>
         </form>

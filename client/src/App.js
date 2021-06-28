@@ -1,12 +1,16 @@
 import React from 'react'
 import './App.css'
-import LandingSearch from './Components/LandingSearch'
+import LandingSearch from './Main/LandingSearch'
 import SideNavBar from './Components/SideNavBar'
-import Header from './Components/Header'
-import Login from './Components/Login'
-
+import Header from './Main/Header'
+import Login from './TokensAndLogin/Login'
 
 const code = new URLSearchParams(window.location.search).get('code')
+
+const code2 = localStorage.getItem("code")
+
+const accessToken = localStorage.getItem("access_token")
+
 const App = () => {
 
     return (
@@ -17,10 +21,8 @@ const App = () => {
                     <Header />
                     {code ? <LandingSearch code={code} /> : <Login />}
                 </div>
-
             </div>
         </div>
-
     )
 }
 

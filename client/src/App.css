@@ -8,7 +8,12 @@
 html {
     background-color: rgba(10, 10, 10, 1);
 }
-
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    margin: 0;
+}
 .SideNavBar {
     position: fixed;
     width: 10%;
@@ -35,7 +40,7 @@ html {
 
 .LandingSearch {
     display: flex;
-    margin-top: 2.5em;
+    margin-top: 50%;
     justify-content: center;
     
 }
@@ -80,5 +85,5 @@ html {
 
 .ArtistCards .AlbumImage {
     order: 1;
-    margin-top: 2rem;
+    margin-top: 4rem;
 }

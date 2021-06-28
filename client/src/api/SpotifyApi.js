@@ -33,6 +33,7 @@ export const SearchTrack = (mergedSongArr) => {
     return mergedSongArr.map(track => {
 
         return {
+            albumUrl: track.albumUrl,
             artist: track.artists[0].name,
             title: track.name,
             id: track.id,
