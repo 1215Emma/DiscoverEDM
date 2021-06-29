@@ -5,18 +5,20 @@ export default function useAuth(code) {
     const [accessToken, setAccessToken] = useState()
     const [refreshToken, setRefreshToken] = useState()
     const [expiresIn, setExpiresIn] = useState()
+    
     useEffect(() => {
 
         axios.post('http://localhost:3001/login', {
-            code, 
+           code, 
 
         })
             .then(res => {
                 console.log(res.data)
-                localStorage.setItem("access_token", res.data.accessToken)
                 setAccessToken(res.data.accessToken)
                 setRefreshToken(res.data.refreshToken)
                 setExpiresIn(res.data.expiresIn)
+                localStorage.setItem("refresh_token", res.data.refreshToken)
+                localStorage.setItem("access_token", res.data.accessToken)
                 // window.history.pushState({}, null, "/")
             })
             .catch(() => {

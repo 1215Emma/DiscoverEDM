@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import SpotifyWebApi from 'spotify-web-api-node'
 import useAuth from '../TokensAndLogin/useAuth'
-import { SearchTracks } from '../Components/TrackSearchResult'
+import { SearchTracks } from './Components/TrackSearchResult'
 import { SearchAlbum, SearchTrack } from '../api/SpotifyApi'
 import _ from 'underscore'
+import './Dashboard.css'
+import PostHeader from './PostHeader'
+import SearchButton from './Components/SearchButton'
 
 const spotifyApi = new SpotifyWebApi({
     clientId: "c0024b0181434c5c848e7f5bf8a7afe0",
 })
-
-export default function LandingSearch({ code }) {
-
+export default function Dashboard({ code }) {
+    localStorage.setItem("code", code)
     const accessToken = useAuth(code)
-    if (accessToken != null) { localStorage.setItem("access token", accessToken) }
     const [search, setSearch] = useState('')
     const [searchAlbums, setAlbumsResults] = useState([])
     const [searchTracks, setTracksResults] = useState([])
@@ -27,7 +28,7 @@ export default function LandingSearch({ code }) {
         async function fetchData() {
             if (!search) return setAlbumsResults([])
             if (!accessToken) return
-            const albums = await SearchAlbum(accessToken, search);
+            const albums = await SearchAlbum(search);
             setAlbumsResults(albums)
         }
         fetchData()
@@ -70,25 +71,27 @@ export default function LandingSearch({ code }) {
         fetchData()
     }, [search, accessToken, searchAlbums])
     console.log(searchTracks)
-    return (
-        <form className='FormBox'>
-            <div className='LandingSearch'>
-                <input type="search" placeholder="  Search an artist" value={search} onChange={e => setSearch(e.target.value)} />
-                {/* <input type="submit" value='submit' onClick={e => setSearch(e.target.value)} /> */}
 
-
-                <div className='searchResults'>
-
-                    {/* {searchAlbums.map(album => (
-                        <SearchAlbums album={album} key={album.id} />
-                    ))} */}
-
-                    {searchTracks.map(track => (
-                        <SearchTracks track={track} key={track.id} />
-                    ))}
-                    
-                </div>
+    return (  
+        <div className='Dashboard'>
+            <PostHeader />
+            <div className="SearchBar">
+                <input
+                    type="text"
+                    placeholder="  Search an artist"
+                    value={search}
+                    // onChange={e => setSearch(e.target.value)}
+                />
+                <SearchButton setSearch={setSearch} />
             </div>
-        </form>
+                {/* <input type="submit" value='submit' onClick={e => setSearch(e.target.value)} /> */}
+                
+                {/* {searchAlbums.map(album => (
+                    <SearchAlbums album={album} key={album.id} />
+                ))} */}
+                {searchTracks.map(track => (
+                    <SearchTracks track={track} key={track.id} />
+                ))}
+        </div>
     )
 }

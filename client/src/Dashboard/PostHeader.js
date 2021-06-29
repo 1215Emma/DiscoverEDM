@@ -1,12 +1,13 @@
 import React from 'react'
+import './Dashboard.css'
 
-const Header = () => {
+const PostHeader = () => {
     return (
-        <div className='HeaderTitle'>
+        <div className='PostHeader'>
             <h1>Music from your favorite artists<br />
             shown in a beautiful way.</h1>
         </div>
     )
 }
 
-export default Header
+export default PostHeader

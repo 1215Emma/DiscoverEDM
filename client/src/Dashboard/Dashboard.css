@@ -1,0 +1,38 @@
+.Dashboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    max-height: 100vh;
+    width: 100%;
+}
+
+.PostHeader {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.SearchBar {
+    display: flex;
+    flex-direction: row;
+    height: 55px;
+}
+
+.SearchBar input {
+    width: 25em;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(0, 0, 0, 0.75);
+    border-style: solid;
+    font-size: 24px;
+}
+
+.SearchBar button {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: rgba(0, 0, 0, 0.75);
+    border-style: solid;
+    width: 7em;
+    height: 55px;
+}

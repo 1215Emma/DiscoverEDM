@@ -4,8 +4,9 @@ const spotifyApi = new SpotifyWebApi({
 })
 
 // grabs api and pulls album artworks only //
-export const SearchAlbum = (accessToken, search) => {
-    spotifyApi.setAccessToken(accessToken)
+export const SearchAlbum = (search) => {
+    // localStorage.getItem("access_token")
+    spotifyApi.setAccessToken(localStorage.getItem("access_token"))
     return spotifyApi.searchAlbums(search, { limit: 50 }).then(res => {
 
         return res.body.albums.items.map(album => {
