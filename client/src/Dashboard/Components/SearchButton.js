@@ -1,13 +1,11 @@
 // import React from 'react'
 
-// const SearchButton = ({ search, setSearch }) => {
+// const SearchButton = ({searchTracks}) => {
 //     return (
 //         <div>
-//             <button
-//                 type="submit" 
-//                 className="SearchButton"
-//                 value={search}
-//                 onClick={e => setSearch(e.target.value)} />
+//             {searchTracks.map(track => (
+//                 <SearchTracks track={track} key={track.id} />
+//             ))}
 //         </div>
 //     )
 // }

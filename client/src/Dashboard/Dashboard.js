@@ -6,7 +6,7 @@ import { SearchAlbum, SearchTrack } from '../api/SpotifyApi'
 import _ from 'underscore'
 import './Dashboard.css'
 import PostHeader from './PostHeader'
-// import SearchButton from './Components/SearchButton'
+import SearchButton from './Components/SearchButton'
 
 const spotifyApi = new SpotifyWebApi({
     clientId: "c0024b0181434c5c848e7f5bf8a7afe0",
@@ -71,28 +71,34 @@ export default function Dashboard({ code }) {
         fetchData()
     }, [search, accessToken, searchAlbums])
     console.log(searchTracks)
-
+    const myChangeHandler = () => {
+        
+        searchTracks.map(track => (
+            <SearchTracks track={track} key={track.id} />
+        ))
+    }
     return (  
         <div className='Dashboard'>
             <PostHeader />
-            <div className="SearchBar">
+            <form onSubmit = {myChangeHandler} className="SearchBar">
                 <input
                     type="text"
                     placeholder="  Search an artist"
                     value={search}
-                    onChange={e => setSearch(e.target.value)}
+                    onChange={event => setSearch(event.target.value)}
                 />
-                {/* <SearchButton setSearch={setSearch} search={search}/> */}
-                <button type="submit" value="submit" onClick={e => setSearch(e.target.value)} />
-            </div>
-                
+                <button type="submit"/>
+            </form>
+            
                 
                 {/* {searchAlbums.map(album => (
                     <SearchAlbums album={album} key={album.id} />
                 ))} */}
+            {/* <div className="SearchResults">
                 {searchTracks.map(track => (
-                    <SearchTracks track={track} key={track.id} />
+                <SearchTracks track={track} key={track.id} />
                 ))}
+            </div>     */}
         </div>
     )
 }
