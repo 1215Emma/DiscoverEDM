@@ -1,14 +1,15 @@
-import React from 'react'
+// import React from 'react'
 
-const SearchButton = ({ setSearch }) => {
-    return (
-        <div>
-            <button
-                type="submit" 
-                className="SearchButton"  
-                onClick={e => setSearch(e.target.value)} />
-        </div>
-    )
-}
+// const SearchButton = ({ search, setSearch }) => {
+//     return (
+//         <div>
+//             <button
+//                 type="submit" 
+//                 className="SearchButton"
+//                 value={search}
+//                 onClick={e => setSearch(e.target.value)} />
+//         </div>
+//     )
+// }
 
-export default SearchButton
+// export default SearchButton

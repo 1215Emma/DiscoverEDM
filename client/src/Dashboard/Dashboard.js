@@ -6,7 +6,7 @@ import { SearchAlbum, SearchTrack } from '../api/SpotifyApi'
 import _ from 'underscore'
 import './Dashboard.css'
 import PostHeader from './PostHeader'
-import SearchButton from './Components/SearchButton'
+// import SearchButton from './Components/SearchButton'
 
 const spotifyApi = new SpotifyWebApi({
     clientId: "c0024b0181434c5c848e7f5bf8a7afe0",
@@ -80,11 +80,12 @@ export default function Dashboard({ code }) {
                     type="text"
                     placeholder="  Search an artist"
                     value={search}
-                    // onChange={e => setSearch(e.target.value)}
+                    onChange={e => setSearch(e.target.value)}
                 />
-                <SearchButton setSearch={setSearch} />
+                {/* <SearchButton setSearch={setSearch} search={search}/> */}
+                <button type="submit" value="submit" onClick={e => setSearch(e.target.value)} />
             </div>
-                {/* <input type="submit" value='submit' onClick={e => setSearch(e.target.value)} /> */}
+                
                 
                 {/* {searchAlbums.map(album => (
                     <SearchAlbums album={album} key={album.id} />
