@@ -17,16 +17,16 @@ export default function useAuth(code) {
                 setAccessToken(res.data.accessToken)
                 setRefreshToken(res.data.refreshToken)
                 setExpiresIn(res.data.expiresIn)
-                localStorage.setItem("refresh_token", res.data.refreshToken)
-                localStorage.setItem("access_token", res.data.accessToken)
+                
                 // window.history.pushState({}, null, "/")
             })
-            .catch(() => {
-                console.log("hello")
+            .catch((err) => {
+                console.log(err)
                 window.location = "/"
             })
 
     }, [code])
+    
     useEffect(() => {
         if (!refreshToken || !expiresIn) return
         const interval = setInterval(() => {
@@ -47,7 +47,9 @@ export default function useAuth(code) {
 
         return () => clearInterval(interval)
     }, [refreshToken, expiresIn])
-
+    localStorage.setItem('access_token', accessToken)
+    localStorage.setItem('refresh_token', refreshToken)
+    localStorage.setItem('expires_in', expiresIn)
     return accessToken
 
 }

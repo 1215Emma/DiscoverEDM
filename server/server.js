@@ -25,7 +25,7 @@ app.post("/refresh", (req, res) => {
       })
     })
     .catch(err => {
-      console.log("hello3")
+      console.log(err)
       res.sendStatus(400)
     })
 })

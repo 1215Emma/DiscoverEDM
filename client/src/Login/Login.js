@@ -4,7 +4,7 @@ import PreHeader from './PreHeader'
 import './Login.css'
 // This is the login page. I defined what loginUrl is 
 export const Login = () => {
-    
+    // console.log(Date.now())
     return (
         <div className="Container">
             <PreHeader />
@@ -14,4 +14,3 @@ export const Login = () => {
         </div>
     )
 }
-

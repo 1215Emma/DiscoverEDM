@@ -1,0 +1,25 @@
+import React from 'react'
+
+export function SearchAlbums({ album }) {
+    return (
+        <div className='ArtistCards'>
+            <img src={album.albumUrl} className='AlbumCovers' alt='album Artwork' />
+
+        </div>
+    )
+}
+
+// const SearchTracks = ({ track }) => {
+//         console.log("test")
+//     return (
+//         <div className='ArtistCards'>
+//             <div className="AlbumImage">
+//                 <img src={track.albumUrl} alt="" />
+//             </div>
+//             <div className='SongName'>{track.title}</div> 
+//             <div className='ArtistName'>{track.artist}</div>
+//         </div>
+//     )
+// }
+
+// export default SearchTracks
