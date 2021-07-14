@@ -1,12 +1,12 @@
 html {
-  background-color: #313639;
+  background-color: #574ca8;
 }
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-.Dashboard {
+/* .Dashboard {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,9 +15,9 @@ body {
     padding: 0;
     min-height: 100vh;
     max-width: 100hh;
-}
+} */
 
-.PostHeader {
+/* .PostHeader {
     order: 1;
     color: white;
     font-family: Arial, Helvetica, sans-serif
@@ -48,4 +48,4 @@ body {
 
 .SearchResults {
     order: 3;
-}
+} */

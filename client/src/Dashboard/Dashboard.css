@@ -1,43 +1,202 @@
 .Dashboard {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center; */
+    /* align-items: center; */
     margin: 0;
     padding: 0;
     min-height: 100vh;
     max-width: 100hh;
 }
 
-.PostHeader {
-    order: 1;
+/* .PostHeader { 
     color: white;
-    font-family: Arial, Helvetica, sans-serif
-}
-
-.SearchBar {
-    order: 2;
+    font-family: Arial, Helvetica, sans-serif;
+    align-self: center;
+} */
+.navigation_bar {
     display: flex;
     flex-direction: row;
+}
+.SearchBar { 
+    margin-top: 2em;
+    margin-bottom: 2em;
+    display: flex;
     height: 55px;
-}
-
-.SearchBar input {
-    width: 25em;
-    background-color: rgba(255, 255, 255, 0.15);
-    border-color: rgba(0, 0, 0, 0.75);
-    border-style: solid;
-    font-size: 24px;
-}
-
-.SearchBar button {
-    background-color: rgba(0, 0, 0, 0.5);
-    border-color: rgba(0, 0, 0, 0.75);
-    border-style: solid;
-    width: 7em;
+    align-self: center;
+    flex-grow: 2;
+    width: 50%;
+    outline: none;
+    opacity: 1;
+    cursor: pointer;
     
 }
 
+.SearchBar input {
+    padding-left: 1em;
+    width: 25em;
+    border-radius: 20px 0 0 20px;
+    background-color: transparent;
+    border-color: rgba(0, 0, 0, 0.75);
+    font-size: 24px;
+    cursor: pointer;
+    border-right: none;
+}
+.SearchBar input::placeholder {
+    color: rgba(0, 0, 0, 0.6);
+}
+.SearchBar input:focus {
+    outline: none !important;
+    border-color: none;
+    box-shadow: none;
+}
+.SearchBar button {
+    background-color: transparent;
+    border-color: rgba(0, 0, 0, 0.75);
+    border-left: none;
+    border-radius: 0 20px 20px 0;
+    width: 7em;
+    cursor: pointer;
+    
+}
+
+.searchicon {
+    font-size: 2em;
+}
 .SearchResults {
-    order: 3;
+    order: 3;   
+    background-color: rgba(255, 100, 100, 0.25);
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.mappedresults {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(25, 255, 100, 0.25);
+    margin-bottom: 3rem;
+    
+}
+.ArtistCards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+}
+.songCards {
+    display: flex;
+    flex-direction: column;
+    font-size: 2em;
+    height: 50vh;
+    flex-wrap: wrap;
+}
+
+.albumCover {
+    padding-left: 3em;
+    padding-right: 3em;
+    
+}
+.songsInAlbum {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 0.5em;
+}
+.songsInAlbumCombined {
+    width: 8em;
+    display: flex;
+    flex-direction: column;
+}
+
+.artistName {
+    font-size: 0.6em;
+}
+.user_info {
+    display: flex;
+    flex-grow: 1;
+    margin-top: 2em;
+    margin-left: 1em;
+    margin-bottom: 1em;
+   
+    
+}
+.hamburger_dropdown {
+    font-size: 2em;
+    padding-left: 0.5em;
+}
+.profile_picture {
+    border-radius: 50%;  
+    width: 3.4em;
+    height: 3.4em;
+    margin-top: 0.03em;
+    margin-left: -0.1em;
+
+}
+.pfp_wrapper {
+    background-color: rgba(46, 49, 49, 0.75);
+    border: black solid 4px;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-left: none;
+    width: 3.5rem;
+    height: 3.5rem;
+   
+}
+.filler_button {
+    border: black solid 4px;
+    border-right: none;
+    border-left: none;
+    background-color: rgba(46, 49, 49, 0.75);
+    width: 7rem;
+    height: 3.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}    
+.user_button {
+    border: black solid 4px;
+    border-right: none;
+    background-color: rgba(46, 49, 49, 0.75);
+    width: 3.5rem;
+    height: 3.5rem;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;  
+}
+.usersTopArtists {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-left: 17em;
+    margin-right: 17em;
+    background-color: rgba(46, 49, 49, 0.5);
+}
+.top-artists-container {
+    display: flex;
+    background-color: black;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 2em;
+    padding-top: 1em;
+    margin: 1em;
+    border: black solid;
+    cursor: pointer;
+}
+.top-artists-card {
+    display: flex;
+    flex-direction: column;
+}
+.artist-image {
+    order: 1;
+    margin-bottom: 1.5em;
+    border-radius: 50%;
+    height: 160px;
+    width: 160px;
+    
+}
+.artist-name {
+    order: 2;
+    color: white;
+    align-self: center;
 }

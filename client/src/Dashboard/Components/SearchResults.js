@@ -1,25 +1,40 @@
 import React from 'react'
+import '../Dashboard.css'
 
-export function SearchAlbums({ album }) {
-    return (
-        <div className='ArtistCards'>
-            <img src={album.albumUrl} className='AlbumCovers' alt='album Artwork' />
+const SearchResults = ({ track }) => {
+    const setResultDivs = () => {
+        if (track.albumUrl) {
+            const itemArr = track.tracks
+            return (
+                <div className="ArtistCards">
+                    <div className="albumCover">
+                    <img src={track.albumUrl} alt="" />
+                    </div>
+                    <div className="songCards">
+                        {itemArr.map(results => {
+                            return (
+                                <div className="songsInAlbum">
+                                    <div className="songsInAlbumCombined">
+                                        <div className="songName">{results.name}</div>
+                                        <div className="artistName">{results.artists[0].name}</div>
+                                    </div>
+                                </div>
+                            )
+                        })}    
+                    </div>
+                </div>
+            )
+        }                 
+    }
 
-        </div>
+            
+    
+    return ( 
+        
+            setResultDivs()
+        
     )
 }
 
-// const SearchTracks = ({ track }) => {
-//         console.log("test")
-//     return (
-//         <div className='ArtistCards'>
-//             <div className="AlbumImage">
-//                 <img src={track.albumUrl} alt="" />
-//             </div>
-//             <div className='SongName'>{track.title}</div> 
-//             <div className='ArtistName'>{track.artist}</div>
-//         </div>
-//     )
-// }
+export default SearchResults
 
-// export default SearchTracks
