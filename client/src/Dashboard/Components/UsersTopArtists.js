@@ -1,7 +1,5 @@
-import React, { useState } from 'react'
-import { FetchBoth } from '../api/SpotifyApi'
+import React from 'react'
 const UsersTopArtists = ({artists}) => {
-    const [allResults, setAllResults] = useState([])
     let search = ('')
     const searchArtist = (e) => {
         e.preventDefault();

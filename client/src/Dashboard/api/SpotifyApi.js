@@ -17,7 +17,6 @@ export async function FetchBoth(search) {
             const albumName = album.name.toLowerCase()
             const albumArtist = album.artists[0].name.toLowerCase()
             const totalTracks = album.total_tracks
-            console.log(totalTracks)
             if (
             (album.album_type === "album" || (totalTracks > 3))
             && !albumName.includes("deluxe") 
@@ -50,7 +49,6 @@ export async function FetchBoth(search) {
         }).filter(item => item != null) 
     })
     return getAlbums.then(results => {  
-        console.log(results)
         const newArr = [];
         for (let i = 0; i < results.length; i++) {
             if (results[i].albumUrl) {
@@ -71,18 +69,11 @@ export async function FetchBoth(search) {
                     albumUrl: largestAlbumImage.url,
                     album: album.name,
                     artist: album.artists[0].name,
-                    tracks: album.tracks.items
+                    tracks: album.tracks.items,
+                    artistId: album.artists[0].id
                 }
             }).filter(item => item != null) 
-        // }).then(results => {
-        //     console.log(results.map(tracks => {
-        //         console.log(tracks.tracks)
-        //     }))
-            // results.tracks.map(tracks => {
-            //     console.log(tracks)
-            // })
-        })
-        
+        })  
     })
-    
 }
+

@@ -26,6 +26,8 @@ export const topArtists = () => {
     const credentials = JSON.parse(localStorage.getItem("credentials"))
     const accessToken = credentials.accessToken
     spotifyApi.setAccessToken(accessToken)
+    spotifyApi.getArtist("45eNHdiiabvmbp4erw26rg").then(results =>{
+    })
     const topArtists = () => { 
         const getTopArtists = spotifyApi.getMyTopArtists()
         return getTopArtists.then(results => {
@@ -36,6 +38,7 @@ export const topArtists = () => {
             console.log(err)
         })
     }
+    
     const newTop = topArtists().then(results => {
         return results.topArtists.map(results => {
             return {
@@ -43,7 +46,8 @@ export const topArtists = () => {
             id: results.id,
             genres: results.genres,
             href: results.href,  
-            image: results.images[2]  
+            image: results.images[2],
+            image2: results.images[1]
             }
         })
     })
