@@ -8,7 +8,8 @@ const SearchResults = ({ track }) => {
             return (
                 <div className="ArtistCards">
                     <div className="albumCover">
-                    <img src={track.albumUrl} alt="" />
+                    <img src={track.albumUrl} alt="" className="album-cover-img"/>
+                    <div className="album-name">{track.album}</div>
                     </div>
                     <div className="songCards">
                         {itemArr.map(results => {

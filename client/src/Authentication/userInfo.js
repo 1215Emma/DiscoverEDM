@@ -10,7 +10,10 @@ export const userInfo = () => {
     const getInfo = () => {
         const userInfo = spotifyApi.getMe()
         return userInfo.then(results => {
+            const splitName = results.body.display_name.split(" ")
             return {
+                firstName: splitName[0],
+                lastName: splitName[1],
                 name: results.body.display_name,
                 email: results.body.email,
                 profilePicture: results.body.images[0].url
@@ -26,9 +29,8 @@ export const topArtists = () => {
     const credentials = JSON.parse(localStorage.getItem("credentials"))
     const accessToken = credentials.accessToken
     spotifyApi.setAccessToken(accessToken)
-    spotifyApi.getArtist("45eNHdiiabvmbp4erw26rg").then(results =>{
-    })
-    const topArtists = () => { 
+
+    const topArtistsSearch = () => { 
         const getTopArtists = spotifyApi.getMyTopArtists()
         return getTopArtists.then(results => {
             return {
@@ -39,7 +41,7 @@ export const topArtists = () => {
         })
     }
     
-    const newTop = topArtists().then(results => {
+    const newTop = topArtistsSearch().then(results => {
         return results.topArtists.map(results => {
             return {
             name: results.name,

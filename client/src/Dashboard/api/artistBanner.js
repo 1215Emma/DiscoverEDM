@@ -1,9 +1,8 @@
-import react from 'react'
 import SpotifyWebApi from 'spotify-web-api-node'
 const spotifyApi = new SpotifyWebApi({
     clientId: "c0024b0181434c5c848e7f5bf8a7afe0",
 })
-
+// API call searching artists
 export const artistBanner = (search) => {
     console.log(search)
     const credentials = JSON.parse(localStorage.getItem("credentials"))
@@ -19,7 +18,9 @@ export const artistBanner = (search) => {
     })
 }
 
+// Api call getting top 10 tracks from artist (requires artist ID)
 export const artistBannerTopTracks = (results) => {
+    console.log(results)
     return spotifyApi.getArtistTopTracks(results.artistId, "US").then(results => {
             let count = 0;
         return results.body.tracks.map(topTracksInfo => {

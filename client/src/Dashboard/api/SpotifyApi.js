@@ -1,9 +1,11 @@
+import { useContext } from 'react'
 import SpotifyWebApi from 'spotify-web-api-node'
 const spotifyApi = new SpotifyWebApi({
     clientId: "c0024b0181434c5c848e7f5bf8a7afe0",
 })
 
 export async function FetchBoth(search) {
+
     const credentials = JSON.parse(localStorage.getItem("credentials"))
     const accessToken = credentials.accessToken
     spotifyApi.setAccessToken(accessToken)
