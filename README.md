@@ -9,3 +9,4 @@ features I want to have:
 - Play functionality 
 - Playlist editing 
 - color customization for the web app
+- Data about a users past listening trends?? interactive graphs??
