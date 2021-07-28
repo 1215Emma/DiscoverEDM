@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import albumBannerTracks from '../Components/albumBannerTracks'
+import albumBannerTracks from '../Components/AlbumBanner/albumBannerLogic'
 const AlbumButtonsContext = React.createContext()
 const AlbumCoverClickContext = React.createContext()
 

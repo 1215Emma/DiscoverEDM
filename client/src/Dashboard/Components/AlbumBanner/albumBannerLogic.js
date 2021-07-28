@@ -1,7 +1,8 @@
 import React from 'react'
 
-function albumBannerTracks(e) {
+function albumBannerLogic(e) {
     const albumBanner = e[0]
+    
     return {
         albumName: albumBanner.album,
         albumUrl: albumBanner.albumUrl,
@@ -24,4 +25,4 @@ function albumBannerTracks(e) {
         })
     }
 }
-export default albumBannerTracks
+export default albumBannerLogic

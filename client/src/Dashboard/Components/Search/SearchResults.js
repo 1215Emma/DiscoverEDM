@@ -1,5 +1,4 @@
 import React from 'react'
-import '../Dashboard.css'
 
 const SearchResults = ({ track }) => {
     const setResultDivs = () => {

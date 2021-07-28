@@ -1,7 +1,7 @@
 import React from 'react'
-import AlbumBannerTracksJSX from './AlbumBannerTracksJSX'
-import { useAlbumButtons } from '../Helper/SearchingContext'
-import { useHideArtistBanner } from '../Helper/SearchBarContext'
+import AlbumBannerTracksJSX from '../AlbumBanner/AlbumBannerTracks'
+import { useAlbumButtons } from '../../Helper/SearchingContext'
+import { useHideArtistBanner } from '../../Helper/DashboardContext'
 
 const HideArtistBanner = () => {
     const buttonArtists = useAlbumButtons()

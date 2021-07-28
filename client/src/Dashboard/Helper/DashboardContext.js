@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { FetchBoth } from '../api/SpotifyApi'
 import { artistBanner, artistBannerTopTracks } from '../api/artistBanner'
-const SearchBarContext = React.createContext()
-const SetSearchBarContext = React.createContext()
+const DashboardContext = React.createContext()
+const SetDashboardContext = React.createContext()
 const ArtistSearchContext = React.createContext()
 const ResultsContext = React.createContext()
 const ArtistBannerContext = React.createContext()
@@ -11,11 +11,11 @@ const HideArtistBannerContext = React.createContext()
 const SetHideArtistBannerContext = React.createContext()
 
 
-export const useSearchBar = () => {
-    return useContext(SearchBarContext)
+export const useDashboard = () => {
+    return useContext(DashboardContext)
 }
-export const useSetSearchBar = () => {
-    return useContext(SetSearchBarContext)
+export const useSetDashboard = () => {
+    return useContext(SetDashboardContext)
 }
 export const useArtistSearch = () => {
     return useContext(ArtistSearchContext)
@@ -35,7 +35,7 @@ export const useSetHideArtistBanner = () => {
 export const useHideArtistBanner = () => {
     return useContext(HideArtistBannerContext)
 }
-export const SearchBarProvider = ({ children }) => {
+export const DashboardProvider = ({ children }) => {
     const [search, setSearch] = useState('')
     const [allResults, setAllResults] = useState([])
     const [mainArtistBanner, setMainArtistBanner] = useState([])
@@ -60,8 +60,8 @@ export const SearchBarProvider = ({ children }) => {
         setHideArtistBanner(e)
     }
     return (
-        <SearchBarContext.Provider value={search}>
-            <SetSearchBarContext.Provider value={settingSearch}>
+        <DashboardContext.Provider value={search}>
+            <SetDashboardContext.Provider value={settingSearch}>
                 <ArtistSearchContext.Provider value={topArtistSearch}>
                     <ResultsContext.Provider value={allResults}>
                         <ArtistBannerContext.Provider value={mainArtistBanner}>
@@ -75,7 +75,7 @@ export const SearchBarProvider = ({ children }) => {
                         </ArtistBannerContext.Provider>
                     </ResultsContext.Provider>
                 </ArtistSearchContext.Provider>
-            </SetSearchBarContext.Provider>
-        </SearchBarContext.Provider>
+            </SetDashboardContext.Provider>
+        </DashboardContext.Provider>
     )
 }

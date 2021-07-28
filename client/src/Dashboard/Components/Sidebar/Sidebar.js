@@ -1,9 +1,9 @@
 import React from 'react'
-import { useArtistSearch, useHideArtistBanner } from '../Helper/SearchBarContext'
+import { useArtistSearch } from '../../Helper/DashboardContext'
 import UserInfoSidebar from './UserInfoSidebar'
+import '../../Dashboard.css'
 function Sidebar() {
     const topArtistSearch = useArtistSearch()
-    const hideArtistBanner = useHideArtistBanner()
     return (
         <div className="sidebar">
             <UserInfoSidebar topArtistSearch={topArtistSearch} />

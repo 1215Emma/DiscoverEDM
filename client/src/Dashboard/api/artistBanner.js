@@ -20,7 +20,6 @@ export const artistBanner = (search) => {
 
 // Api call getting top 10 tracks from artist (requires artist ID)
 export const artistBannerTopTracks = (results) => {
-    console.log(results)
     return spotifyApi.getArtistTopTracks(results.artistId, "US").then(results => {
             let count = 0;
         return results.body.tracks.map(topTracksInfo => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import logo from './images/Spotify-logo-transparent.png'
-const PreHeader = () => {
+const LoginLogo = () => {
     return (
         <div className='PreHeader'>
             <img src={logo} className="Spotify-logo" alt=""></img>
@@ -10,4 +10,4 @@ const PreHeader = () => {
 }
 
 
-export default PreHeader
+export default LoginLogo

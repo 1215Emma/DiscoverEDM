@@ -1,17 +1,16 @@
 import React from 'react'
-import { useSearchBar, useArtistSearch, useSetSearchBar, useArtistBanner, useArtistBannerTracks } from '../Helper/SearchBarContext'
+import { useDashboard, useArtistSearch, useSetDashboard, useSetHideArtistBanner } from '../../Helper/DashboardContext'
 import { RiSearchLine } from 'react-icons/ri';
 const SearchBar = () => {
     
-    const search = useSearchBar()
+    const search = useDashboard()
     const topArtistSearch = useArtistSearch()
-    const settingSearch = useSetSearchBar()
-    // const artistBanner = useArtistBanner()
-    // const artistBannerTracks = useArtistBannerTracks()
-    // ; hideTop20Banner(e)
+    const settingSearch = useSetDashboard()
+    const setHideArtistBanner = useSetHideArtistBanner()
+    
     return (
         <div className="navigation_bar">
-            <form onSubmit={(e) => {e.preventDefault(); topArtistSearch(search)}}className="SearchBar">
+            <form onSubmit={(e) => {e.preventDefault(); topArtistSearch(search); setHideArtistBanner(false)}}className="SearchBar">
                     <input
                     type="text"
                     placeholder="  Search an artist"

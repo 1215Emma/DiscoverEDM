@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHideArtistBanner, useArtistBanner, useArtistBannerTracks } from '../Helper/SearchBarContext'
+import { useHideArtistBanner, useArtistBanner, useArtistBannerTracks } from '../../Helper/DashboardContext'
 import { ArtistBanner, ArtistBannerTracks } from './ArtistBanner'
 
 

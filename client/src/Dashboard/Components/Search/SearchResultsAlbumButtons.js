@@ -1,10 +1,9 @@
 import SearchResults from './SearchResults'
-import { useResults, useSetHideArtistBanner } from '../Helper/SearchBarContext'
-import { useAlbumButtons, useAlbumCoverClick } from '../Helper/SearchingContext'
+import { useResults, useSetHideArtistBanner } from '../../Helper/DashboardContext'
+import { useAlbumCoverClick } from '../../Helper/SearchingContext'
 
 const Searching = () => {
 const allResults = useResults()
-const albumButtons = useAlbumButtons()
 const albumCoverClick = useAlbumCoverClick()
 const setHideArtistBanner = useSetHideArtistBanner()
 return (

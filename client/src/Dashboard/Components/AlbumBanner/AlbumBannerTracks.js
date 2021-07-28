@@ -1,6 +1,7 @@
 import React from 'react'
+import  { GrPlay } from 'react-icons/gr'
 
-function AlbumBannerTracksJSX({ albumSongs }) {
+function AlbumBannerTracks({ albumSongs }) {
     return (
         <div className="album-banner-container">
             <div className="album-banner-card">
@@ -17,9 +18,13 @@ function AlbumBannerTracksJSX({ albumSongs }) {
                 <div className="album-banner-tracks">
                     <div className="banner-track-name-group">
                         <div className="banner-tracks-info">
+                            <div className="tracks-hover-toggle">
+                            < GrPlay className="tracks-play-button" />
                             <div className="banner-track-count">
                             {tracks.trackNumber}
-                            </div>  
+                            </div> 
+                            </div>
+                             
                             <div className="banner-track-name">{tracks.songName}</div> 
                             <div className="banner-track-time">{songDuration}</div>
                         </div>
@@ -32,4 +37,4 @@ function AlbumBannerTracksJSX({ albumSongs }) {
     )
 }
 
-export default AlbumBannerTracksJSX
+export default AlbumBannerTracks

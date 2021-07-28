@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import '../Dashboard.css'
 import { IoIosArrowDropdownCircle } from 'react-icons/io'
-import  { userInfo, topArtists } from '../../Authentication/userInfo'
+import  { userInfo, topArtists } from '../../../Authentication/userInfo'
 import TimeOfDayGreeting from './TimeOfDayGreeting'
-import { useSetHideArtistBanner } from '../Helper/SearchBarContext'
+import { useSetHideArtistBanner } from '../../Helper/DashboardContext'
 
 function UserInfoSidebar({ topArtistSearch }) {
 const [userData, setUserData] = useState([]);

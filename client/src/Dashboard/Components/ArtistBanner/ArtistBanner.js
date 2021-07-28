@@ -1,5 +1,4 @@
 import React from 'react'
-import '../Dashboard.css'
 import  { GrPlay } from 'react-icons/gr'
 export const ArtistBanner = ({ results }) => {     
     return (

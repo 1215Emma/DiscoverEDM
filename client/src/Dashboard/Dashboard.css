@@ -1,5 +1,5 @@
 .Dashboard {
-    background-color: rgb(51, 45, 97);
+  background-image: linear-gradient(#574ca8, #000);
     /* justify-content: center; */
     /* align-items: center; */
     margin: 0;
@@ -9,11 +9,6 @@
     box-sizing: border-box;
 }
 
-/* .PostHeader { 
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    align-self: center;
-} */
 .dashboard-no-sidebar {
     display: flex;
     flex-direction: column;
@@ -28,7 +23,7 @@
     left: 0;
     width: 18rem;
     min-height: 100vh !important;
-    background-color: rgba(0,0,0, 0.8);
+    background-color: rgba(6, 1, 19, 1);
     overflow: hidden;
 }
 
@@ -44,12 +39,6 @@
     height: 7em;
     
 } 
-/* .hamburger_dropdown {
-    font-size: 2.5em;
-    color: white;
-    height: 100%;
-    align-items: center;
-} */
 .profile_picture {
     width: 6em;
     height: 6em;
@@ -167,7 +156,7 @@
     flex-direction: row;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    background-color: rgba(0, 0, 0, 0.75);
+    /* background-color: rgba(0, 0, 0, 0.75); */
     margin-bottom: 3rem;
     margin-left: 5em;
     margin-right: 5em;
@@ -234,7 +223,7 @@
     justify-content: center;
     margin-left: 5em;
     margin-right: 2em;
-    background-color: rgba(46, 49, 49, 0.25);
+    /* background-color: rgba(46, 49, 49, 0.25); */
     border-radius: 1%;
 }
 .top-artists-container {
@@ -271,17 +260,17 @@
   display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-left: 5em;
+     margin-left: 5em;
     margin-right: 5em;
     margin-top: 1em;
     padding-top: 2.5em;
     padding-bottom: 2.5em;
-    /* margin-bottom: 5em; */
-    background-color: rgba(0, 0, 0, 0.75);
     border-bottom: white solid 0.5px;  
 }
 .album-banner-container {
     order: 1;
+    display: flex;
+    flex-direction: row;
     padding-left: 1em;
     padding-right: 1em;
     padding-bottom: 2em;
@@ -289,10 +278,21 @@
     margin-left: 2em;
     cursor: pointer;
     border-radius: 10%;
+    width: 100%;
 }
-.album-banner-card {
+.album-songs-container {
+    order: 2;
+    height: 30em;
+    width: 87em;
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
+}
+.album-banner-card {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+
 }
 .album-banner-image {
     order: 1;
@@ -318,7 +318,7 @@
     padding-top: 2.5em;
     padding-bottom: 2.5em;
     /* margin-bottom: 5em; */
-    background-color: rgba(0, 0, 0, 0.75);
+    /* background-color: rgba(0, 0, 0, 0.75); */
     border-bottom: white solid 0.5px;
 }
 .artist-banner-container {
