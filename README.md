@@ -10,3 +10,4 @@ features I want to have:
 - Playlist editing 
 - color customization for the web app
 - Data about a users past listening trends?? interactive graphs??
+- a way to make a quiz to send to friends that they can do to see how well they know your music taste?
