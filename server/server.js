@@ -1,60 +1,3 @@
-// const express = require("express")
-// const cors = require("cors")
-// const SpotifyWebApi = require("spotify-web-api-node")
-
-// const app = express()
-// app.use(cors())
-// app.use(express.json())
-
-// app.post("/refresh", (req, res) => {
-//   const refreshToken = req.body.refreshToken
-//   const spotifyApi = new SpotifyWebApi({
-//     redirectUri: 'http://localhost:3000',
-//     clientId: 'c0024b0181434c5c848e7f5bf8a7afe0',
-//     clientSecret: '28f481b9573e43ab81b6a7d6ef2b8547',
-    
-//     refreshToken,
-//   })
-
-//   spotifyApi
-//     .refreshAccessToken()
-//     .then(data => {
-//       res.json({
-//         accessToken: data.body.access_token,
-//         expiresIn: data.body.expires_in,
-//       })
-//     })
-//     .catch(err => {
-//       console.log(err)
-//       res.sendStatus(400)
-//     })
-// })
-
-// app.post("/api/token", (req, res) => {
-//   const code = (req.body.code)
-//   const spotifyApi = new SpotifyWebApi({
-//     redirectUri: 'http://localhost:3000',
-//     clientId: 'c0024b0181434c5c848e7f5bf8a7afe0',
-//     clientSecret: '28f481b9573e43ab81b6a7d6ef2b8547'
-//   })
-//   spotifyApi
-//     .authorizationCodeGrant(code)
-//     .then(data => {
-//       res.json({
-//         accessToken: data.body.access_token,
-//         refreshToken: data.body.refresh_token,
-//         expiresIn: data.body.expires_in,
-//       })
-//     })
-//     .catch(err => {
-//       console.log(err)
-//       res.sendStatus(400)
-//     })
-// })
-
-
-// app.listen()
-
 const SpotifyWebApi = require('./node_modules/spotify-web-api-node');
 const express = require('./node_modules/express');
 const cors = require("cors");
@@ -98,41 +41,15 @@ app.get('/login', (req, res) => {
   
 });
 
-
-// let count = true
-// app.post('/callback/', (req, res) => {
-//   const code = req.body.code
-//   if (code && count) {
-//     count = false
-//     spotifyApi
-//       .authorizationCodeGrant(code)
-//       .then(data => {
-//           console.log(data.body)
-//           res.json({
-//             accessToken: data.body.access_token,
-//             refreshToken: data.body.refresh_token,
-//             expiresIn: data.body.expires_in,
-//           })
-//       })
-//       .catch(error => {
-//         console.error('Error getting Tokens:', error);
-//         // res.send(`Error getting Tokens: ${error}`);
-//       });
-//     }
-//   else {
-//     console.log("you got a token")
-//   }
-// })
 app.post('/callback/', (req, res) => {
   const code = req.body.code
   const credentials = req.body.credentials
-  console.log(credentials)
+  
+  console.log(code)
   if (code && !credentials) {
-    console.log("hello")
     spotifyApi
       .authorizationCodeGrant(code)
-      .then(data => {
-          console.log(data.body)
+      .then(data => {     
           res.json({
             accessToken: data.body.access_token,
             refreshToken: data.body.refresh_token,
@@ -176,6 +93,56 @@ app.post("/refresh", (req, res) => {
     })
 })
 
-app.listen(3001)
+app.post("/searchArtists", (req, res) => {
+  const search = req.body.search
+  accessToken = req.body.accessToken
+  spotifyApi.setAccessToken(accessToken)
+  spotifyApi.searchArtists(search).then(data => {
+    res.json({
+        artist: data.body.artists.items[0].name,
+        artistImage: data.body.artists.items[0].images[1],
+        artistId: data.body.artists.items[0].id,
+        genres: data.body.artists.items[0].genres
+      })
+    }) 
+    .catch(err => {
+      console.log(err)
+      console.log("is this error")
+    })
+})
 
-      
+app.post("/searchArtistsTopTracks", (req, res) => {
+    const response = req.body.response.artistId
+    const accessToken = req.body.accessToken
+    spotifyApi.setAccessToken(accessToken)
+    spotifyApi.getArtistTopTracks(response, "US").then(results => {
+        let count = 0;
+        const topTracks = results.body.tracks.map(data => {
+            count++
+            return {
+              song: data.name,
+              songDuration: data.duration_ms,
+              AlbumName: data.album.name,
+              AlbumImageSmall: data.album.images[2],
+              AlbumImageMedium: data.album.images[1],
+              countLabel: count,
+              ArtistsInSong: data.artists.map(songArtists => {
+                  return {
+                    songArtists: songArtists.name,
+                      songArtistsId: songArtists.id,
+                  }                 
+              }),    
+            }
+        })
+        res.json({
+          topTracks
+        })
+    })
+    .catch(err => {
+            console.log(err)
+          })
+})      
+
+
+
+app.listen(3001)
