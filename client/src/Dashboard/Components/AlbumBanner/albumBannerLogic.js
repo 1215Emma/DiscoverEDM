@@ -1,4 +1,3 @@
-import React from 'react'
 
 function albumBannerLogic(e) {
     const albumBanner = e[0]

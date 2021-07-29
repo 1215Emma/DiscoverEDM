@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { FetchBoth } from '../api/SpotifyApi'
-import { artistBanner, artistBannerTopTracks } from '../api/artistBanner'
+import axios from 'axios'
 const DashboardContext = React.createContext()
 const SetDashboardContext = React.createContext()
 const ArtistSearchContext = React.createContext()
@@ -41,24 +41,39 @@ export const DashboardProvider = ({ children }) => {
     const [mainArtistBanner, setMainArtistBanner] = useState([])
     const [mainArtistBannerTracks, setMainArtistBannerTracks] = useState([])
     const [hideArtistBanner, setHideArtistBanner] = useState(true)
-
+    
     const topArtistSearch = (e) => {
         FetchBoth(e).then(results => {
         setAllResults(results)
         })
-        artistBanner(e).then(results => {
-            setMainArtistBanner([results])
-            artistBannerTopTracks(results).then(results => {
-            setMainArtistBannerTracks(results)
+        const credentials = JSON.parse(localStorage.getItem("credentials"))
+        const accessToken = credentials.accessToken
+        axios.post("http://localhost:3001/searchArtists", {
+            search,
+            accessToken
+        }).then(res => {  
+            const response = res.data
+            setMainArtistBanner([res.data])
+            axios.post("http://localhost:3001/searchArtistsTopTracks", {
+                response,
+                accessToken
             })
+            .then(res => {
+                console.log(res.data.topTracks)
+            // setMainArtistBannerTracks(res)    
         })
+        }).catch(err => {
+            console.log(err)
+        })   
     }
+    
     const settingSearch = (e) => {
         setSearch(e)
     }
     const HideArtistBanner = (e) => {
         setHideArtistBanner(e)
     }
+
     return (
         <DashboardContext.Provider value={search}>
             <SetDashboardContext.Provider value={settingSearch}>

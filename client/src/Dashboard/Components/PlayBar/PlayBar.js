@@ -2,16 +2,11 @@ import React, { useState } from 'react'
 import './Playbar.css'
 import { GiPreviousButton, GiNextButton, GiPlayButton, GiPauseButton } from 'react-icons/gi'
 import { RiRepeatFill, RiShuffleFill, RiVolumeMuteFill, RiVolumeDownFill, RiVolumeUpFill } from 'react-icons/ri'
-import SpotifyWebApi from 'spotify-web-api-node'
-const spotifyApi = new SpotifyWebApi({
-    clientId: "c0024b0181434c5c848e7f5bf8a7afe0",
-})
+
 
 const PlayBar = () => {
     const [play, setPlay] = useState(true)
-    const credentials = JSON.parse(localStorage.getItem("credentials"))
-    const accessToken = credentials.accessToken
-    spotifyApi.setAccessToken(accessToken)
+
     
     const PLAY = (e) => {
             if (play) {

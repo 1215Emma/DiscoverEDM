@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { useDashboard, useArtistSearch, useSetDashboard, useSetHideArtistBanner } from '../../Helper/DashboardContext'
 import { RiSearchLine } from 'react-icons/ri';
 const SearchBar = () => {

@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
 import axios from "axios";
 
-export default function UserAuth(code, credentials) {
+export default function UseAuth(code, credentials) {
+    console.log(credentials)
     useEffect(() => {    
-        if (credentials == null) {
+        if (credentials == null | credentials === null) {
             axios.post('http://localhost:3001/callback/', {
             code,
             credentials,

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import albumBannerTracks from '../Components/AlbumBanner/albumBannerLogic'
+import albumBannerLogic from '../Components/AlbumBanner/albumBannerLogic'
 const AlbumButtonsContext = React.createContext()
 const AlbumCoverClickContext = React.createContext()
 
@@ -15,7 +15,7 @@ export const AlbumButtonsProvider = ({ children }) => {
     const [albumButtons, setAlbumButtons] = useState([]);
 
     const albumCoverClick = (e) => {
-        setAlbumButtons([albumBannerTracks(e)])
+        setAlbumButtons([albumBannerLogic(e)])
     }
     
     

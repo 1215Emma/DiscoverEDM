@@ -5,7 +5,7 @@ function AlbumBannerTracks({ albumSongs }) {
     return (
         <div className="album-banner-container">
             <div className="album-banner-card">
-                <img src={albumSongs.albumUrl} className="album-banner-image"/>
+                <img src={albumSongs.albumUrl} alt="" className="album-banner-image"/>
                 <div className="album-banner-name">{albumSongs.albumName}</div>
             </div>
             <div className="album-songs-container">

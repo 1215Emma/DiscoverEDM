@@ -7,6 +7,7 @@ function DisplayArtistBanner() {
     const hideArtistBanner = useHideArtistBanner()
     const mainArtistBanner = useArtistBanner()
     const mainArtistBannerTracks = useArtistBannerTracks()
+    
     return (
         <>
         {hideArtistBanner ?<></> : 

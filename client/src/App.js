@@ -2,7 +2,7 @@ import React from 'react'
 import './App.css'
 import Dashboard from './Dashboard/Dashboard'
 import { Login } from './Dashboard/Components/Login/Login'
-import UserAuth from './Authentication/userAuthentication'
+import UseAuth from './Authentication/useAuthentication'
 // import 'bootstrap/dist/css/bootstrap.min.css';
 const code = new URLSearchParams(window.location.search).get('code')
 
@@ -15,12 +15,12 @@ const code = new URLSearchParams(window.location.search).get('code')
 // 3. Token exists and is valid => Dashboard
     
 const App = () => {
-
+    
     const isLoggedIn = () => {
         if( code || localStorage.getItem("credentials") ) { 
             const credentials = JSON.parse(localStorage.getItem('credentials'))
            
-            UserAuth(code, credentials)
+            UseAuth(code, credentials)
         return (
         <Dashboard />      
         )  

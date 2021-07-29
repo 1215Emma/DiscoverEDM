@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { IoIosArrowDropdownCircle } from 'react-icons/io'
 import  { userInfo, topArtists } from '../../../Authentication/userInfo'
 import TimeOfDayGreeting from './TimeOfDayGreeting'
 import { useSetHideArtistBanner } from '../../Helper/DashboardContext'
