@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import  { userInfo, topArtists } from '../../../Authentication/userInfo'
 import TimeOfDayGreeting from './TimeOfDayGreeting'
-import { useSetHideArtistBanner } from '../../Helper/DashboardContext'
+import { useSetHideArtistBanner, useArtistSearch } from '../../Helper/DashboardContext'
+import axios from 'axios';
 
 function UserInfoSidebar({ topArtistSearch }) {
 const [userData, setUserData] = useState([]);
@@ -9,13 +9,19 @@ const [open, setOpen] = useState(false);
 const [usersTopArtists, setUsersTopArtists] = useState([])
 
 const setHideArtistBanner = useSetHideArtistBanner()
-
+const artistSearch = useArtistSearch()
     useEffect(() => {
-        userInfo().then(results => { 
-        setUserData(results)
+        const credentials = JSON.parse(localStorage.getItem("credentials"))
+    const accessToken = credentials.accessToken
+        axios.post("http://localhost:3001/user", {
+            accessToken
+        }).then(res => {
+            setUserData(res.data)
         })
-        topArtists().then(results => {
-            setUsersTopArtists(results)
+        axios.post("http://localhost:3001/topArtists", {
+            accessToken
+        }).then(res => {
+            setUsersTopArtists(res.data.topArtists)
         })
     }, [])
     return (
@@ -43,9 +49,10 @@ const setHideArtistBanner = useSetHideArtistBanner()
             { open &&   
             <div className="your-top-20-container">
                 {usersTopArtists.map(artists => {
+                    const search = (artists.name)
                     return (
-                        <button type="submit" onClick={(e) => {topArtistSearch(artists.name); setHideArtistBanner(false)}}className="your-top-20">
-                            <h1>{artists.name}</h1>
+                        <button type="submit" onClick={(e) => {artistSearch(search); setHideArtistBanner(false)}}className="your-top-20">
+                            <h1>{search}</h1>
                         </button>  
                     )
                 })}

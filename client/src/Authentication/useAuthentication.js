@@ -20,18 +20,16 @@ export default function UseAuth(code, credentials) {
                     timeTokenExpiresMS: Date.now() + (expiresIn * 1000), 
                 }
                 localStorage.setItem("credentials", JSON.stringify(credsObj))
-                // window.history.pushState({}, null, "/")
+                window.history.pushState({}, null, "/")
             
             })
             .catch((err) => {
                 console.log(err)
-                // window.location = "/"
+                window.location = "/"
             })       
         }
         if (credentials) {
-            // const accessToken = JSON.parse(localStorage.getItem("credentials")).accessToken;
             const refreshToken = JSON.parse(localStorage.getItem("credentials")).refreshToken;
-            // const expiresIn = JSON.parse(localStorage.getItem("credentials")).expiresIn;
             const timeTokenExpiresMS = JSON.parse(localStorage.getItem("credentials")).timeTokenExpiresMS;
             if (timeTokenExpiresMS <= Date.now()) {
                 axios.post('http://localhost:3001/refresh', {

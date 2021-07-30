@@ -9,6 +9,7 @@ import HideArtistBanner from './Components/ArtistBanner/HideArtistBanner'
 import PlayBar from './Components/PlayBar/PlayBar'
 
 export default function Dashboard() {  
+    
 
     return (      
             <div className='Dashboard'> 

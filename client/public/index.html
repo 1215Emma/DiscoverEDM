@@ -14,8 +14,8 @@
     <div id='root'></div>
     
 </body>
-<script src="https://sdk.scdn.co/spotify-player.js"></script>
-<script>
+<script id="player-sdk" src="https://sdk.scdn.co/spotify-player.js"></script>
+<script id="window-sdk">
     window.onSpotifyWebPlaybackSDKReady = () => {
       window.Spotify = Spotify;
     };
