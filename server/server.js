@@ -73,15 +73,14 @@ app.post("/refresh", (req, res) => {
   const spotifyApi = new SpotifyWebApi({
     redirectUri: 'http://localhost:3000/callback/',
     clientId: 'c0024b0181434c5c848e7f5bf8a7afe0',
-    clientSecret: '58a04698e6f64fd787c8cbcf08e40824', // was 28f481b9573e43ab81b6a7d6ef2b8547
-    
+    clientSecret: '58a04698e6f64fd787c8cbcf08e40824',
     refreshToken,
   })
-
   spotifyApi
     .refreshAccessToken()
     .then(data => {
       console.log(res.data)
+      spotifyApi.setAccessToken(data.body['access_token'])
       res.json({
         accessToken: data.body.access_token,
         expiresIn: data.body.expires_in,
@@ -94,11 +93,12 @@ app.post("/refresh", (req, res) => {
 })
 
 app.post("/searchArtists", (req, res) => {
-  const search = req.body.e
+  const search = req.body.artistIdentifier
   const accessToken = req.body.accessToken
   spotifyApi.setAccessToken(accessToken)
   spotifyApi.searchArtists(search).then(data => {
     res.json({
+        searchedArtistsKey: "searchedArtistsKey",
         artist: data.body.artists.items[0].name,
         artistImage: data.body.artists.items[0].images[1],
         artistId: data.body.artists.items[0].id,
@@ -116,27 +116,29 @@ app.post("/searchArtistsTopTracks", (req, res) => {
     const accessToken = req.body.accessToken
     spotifyApi.setAccessToken(accessToken)
     spotifyApi.getArtistTopTracks(response, "US").then(results => {
-        let count = 0;
-        const topTracks = results.body.tracks.map(data => {
-            count++
-            console.log(data)
-            return {
-              song: data.name,
-              songDuration: data.duration_ms,
-              AlbumName: data.album.name,
-              AlbumImageSmall: data.album.images[2],
-              AlbumImageMedium: data.album.images[1],
-              countLabel: count,
-              ArtistsInSong: data.artists.map(songArtists => {
-                  return {
-                    songArtists: songArtists.name,
-                      songArtistsId: songArtists.id,
-                  }                 
-              }),    
-            }
-        })
+      console.log(results.body.tracks)
+        // let count = 0;
+        // const topTracks = results.body.tracks.map(data => {
+        //     count++
+        //     return {
+        //       id: data.id,
+        //       name: data.name,
+        //       duration_ms: data.duration_ms,
+        //       albumName: data.album.name,
+        //       albumImageSmall: data.album.images[2],
+        //       albumImageMedium: data.album.images[1],
+        //       track_number: count,
+        //       uri: data.uri,
+        //       artistsInSong: data.artists.map(songArtists => {
+        //           return {
+        //             name: songArtists.name,
+        //               id: songArtists.id,
+        //           }                 
+        //       }),    
+        //     }
+        // })
         res.json({
-          topTracks
+          topTracks: results.body.tracks
         })
     })
     .catch(err => {
@@ -146,7 +148,7 @@ app.post("/searchArtistsTopTracks", (req, res) => {
 
 app.post("/searchAlbums", (req, res) => {
 
-  const search = req.body.e
+  const search = req.body.artistIdentifier
   const accessToken = req.body.accessToken
   spotifyApi.setAccessToken(accessToken)
   const getAlbums = spotifyApi.searchAlbums(search, { limit: 50 }).then(res => {
@@ -200,31 +202,33 @@ app.post("/searchAlbums", (req, res) => {
         return spotifyApi.getAlbums(newArr).then(results => {
             const albums = results.body.albums
             const uniqueAlbums = [...albums.reduce((map, obj) => map.set(obj.name, obj),new Map()).values()];
-            const searchedAlbums = uniqueAlbums.map(album => {
-                const largestAlbumImage = album.images.reduce((largest, image) => {
-                if (image.height > largest.height) return image
-                return largest
-                }, album.images[0]);
-                return {
-                    id: album.id,
-                    albumUrl: largestAlbumImage.url,
-                    album: album.name,
-                    artist: album.artists[0].name,
-                    tracks: album.tracks.items,
-                    artistId: album.artists[0].id
-                }
-            }).filter(item => item != null) 
+            // const searchedAlbums = uniqueAlbums.map(album => {
+            //     const largestAlbumImage = album.images.reduce((largest, image) => {
+            //     if (image.height > largest.height) return image
+            //     return largest
+            //     }, album.images[0]);
+            //     return {
+            //         id: album.id,
+            //         albumUrl: largestAlbumImage.url,
+            //         album: album.name,
+            //         artist: album.artists[0].name,
+            //         tracks: album.tracks.items,
+            //         artistId: album.artists[0].id
+            //     }
+            // }).filter(item => item != null) 
             res.json({
-              searchedAlbums
+              uniqueAlbums: uniqueAlbums
             })
         })  
+    })
+    .catch(err => {
+      console.log("couldn't get albums")
     })  
 })
 
 app.post("/topArtists", (req, res) => {
   const accessToken = req.body.accessToken
   spotifyApi.setAccessToken(accessToken)
-  
       const topArtistsSearch = spotifyApi.getMyTopArtists()
         .then(results => {
             return {
@@ -235,7 +239,7 @@ app.post("/topArtists", (req, res) => {
             console.log("testestst")
         })
     
-      return topArtistsSearch.then(results => {
+      topArtistsSearch.then(results => {
         const topArtists = results.topArtists.map(results => {
             return {
             name: results.name,
@@ -250,9 +254,27 @@ app.post("/topArtists", (req, res) => {
           topArtists
         })
     })
+    .catch(err => {
+      console.log("couldn't get top artists")
+    })
     
 })
 
+app.post("/track", (req, res) => {
+  const accessToken = req.body.accessToken
+  const trackIds = req.body.trackIds
+  spotifyApi.setAccessToken(accessToken)
+  spotifyApi.getTracks(trackIds)
+  .then( track => {
+    res.json({
+      trackData: track
+    })
+  })
+  .catch(err => {
+    console.log(err)
+    console.log("this is a get track error")
+  })
+})
 app.post("/user", (req, res) => {
   const accessToken = req.body.accessToken
   spotifyApi.setAccessToken(accessToken)
@@ -266,14 +288,180 @@ app.post("/user", (req, res) => {
               email: results.body.email,
               profilePicture: results.body.images[0].url
             })        
-        })  
+        })
+      .catch(err => {
+        console.log("couldn't get user")
+      })  
+})
+
+app.post("/getMyDevices", (req, res) => {
+  const accessToken = req.body.accessToken
+  spotifyApi.setAccessToken(accessToken)
+  spotifyApi.getMyDevices()
+  .then( results => {
+    res.json({
+      deviceList: results.body
+    })
+  })
+  .catch(err => {
+    console.log("Couldn't find device")
+  })
 })
 
 app.post("/addToQueue", (req, res) => {
   const accessToken = req.body.accessToken
+  const uri = req.body.uri
+  const deviceId = req.body.deviceId
   spotifyApi.setAccessToken(accessToken)
-  spotifyApi.addToQueue("spotify:track:3LxG9HkMMFP0MZuiw3O2rF", "80cf93bfd578ba9e35ce4b4fadf4606c88e4a3ed" ).then(results => {
-    console.log(results)
+ 
+  spotifyApi.addToQueue(uri, {device_id: deviceId})
+  .then(response => {
+    
+    res.send(response) 
+  })
+  
+  .catch(err => {
+    console.log(err, "addToQueue")
   })
 })
+
+app.post("/play", (req, res) => {
+  const accessToken = req.body.accessToken
+  const uri = req.body.uri
+  spotifyApi.setAccessToken(accessToken)
+  spotifyApi.play({"uris": [uri]})
+    .then(results => {
+          res.send(results) 
+    })
+  .catch(err => {
+    console.log(err)
+    console.log("play catch 2")
+  })
+})
+
+app.post("/playAfterPause", (req, res) => {
+  const accessToken = req.body.accessToken
+  spotifyApi.setAccessToken(accessToken)
+  spotifyApi.play()
+  .then(results => {
+    res.send(results)
+  })
+})
+
+app.post("/pause", (req, res) => {
+  const accessToken = req.body.accessToken
+  spotifyApi.setAccessToken(accessToken)
+   spotifyApi.pause()
+    .then(results => {
+      res.send(results)
+  })
+  .catch(err => {
+    console.log("track didnt pause")
+  })
+})
+app.post('/currentTrack', (req, res) => {
+  const accessToken = req.body.accessToken
+  spotifyApi.setAccessToken(accessToken)
+  spotifyApi.getMyCurrentPlayingTrack()
+  .then (data => {
+    console.log(data)
+    const trackData = {
+      progress_ms: data.body.progress_ms,
+      duration_ms: data.body.item.duration_ms,
+      is_playing: data.body.is_playing,
+      name: data.body.item.name,
+      album_url: data.body.item.album.images[1],
+      artists: data.body.item.artists.map(artists => {
+        return {
+        name: artists.name,
+        uri: artists.uri,
+        }
+      })
+    }
+    res.json({
+      trackData
+    })
+  })
+})
+app.post("/usersPlaylists", (req, res) => {
+  const accessToken = req.body.accessToken
+  spotifyApi.setAccessToken(accessToken)
+  spotifyApi.getUserPlaylists("125269873")
+  .then(results => {
+    res.json({
+      playlists: results.body.items
+    })
+  })
+  .catch(err => {
+    console.log("couldn't get users playlists")
+  })
+})
+
+app.post("/skipTrack", (req, res) => {
+  const accessToken = req.body.accessToken
+  spotifyApi.setAccessToken(accessToken)
+  spotifyApi.skipToNext()
+  .then(results => {
+    res.send(results)
+    console.log("skipped")
+  })
+  .catch(err => {
+    console.log("cannot skip")
+  })
+})
+
+app.post("/prevTrack", (req, res) => {
+  const accessToken = req.body.accessToken
+  spotifyApi.setAccessToken(accessToken)
+  spotifyApi.skipToPrevious()
+  .then(results => {
+    res.send(results)
+    console.log("previous track")
+  })
+  .catch(err => {
+    console.log("cannot go back")
+  })
+})
+
+app.post("/volume", (req, res) => {
+  const accessToken = req.body.accessToken
+  const volume = req.body.volume
+  spotifyApi.setAccessToken(accessToken)
+  spotifyApi.setVolume(volume)
+  .then(results => {
+    res.send(results)
+  })
+  .catch(err => {
+        console.log(err)
+    })
+})
+
+app.post("/durationMs", (req, res) => {
+  const accessToken = req.body.accessToken
+  const positionMs = req.body.durationMs
+  spotifyApi.setAccessToken(accessToken)
+  spotifyApi.seek(positionMs)
+  .then(results => {
+    res.send(results)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+})
+
+app.post("/player_state_changed", (req, res) => {
+  const position = req.body.position_ms
+  const duration = req.body.duration_ms
+  const track_window = req.body.track_window
+  player.addListener('player_state_changed', ({
+    position,
+    duration,
+    track_window
+  }) => {
+    console.log("currently playing", track_window)
+    console.log('position in song', position)
+    console.log('duration of song', duration)
+  }
+)})
+
 app.listen(3001)

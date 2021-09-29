@@ -1,28 +1,41 @@
-import React, { useContext, useState } from 'react'
-
-const ThemeContext = React.createContext()
-const ThemeUpdateContext = React.createContext()
-
-export const useTheme = () => {
-    return useContext(ThemeContext)
-}
-
-export const useThemeUpdate = () => {
-    return useContext(ThemeUpdateContext)
-}
-
-export const ThemeProvider = ({ children }) => {
-    const [lightTheme, setLightTheme] = useState(false)
-
-const toggleTheme = () => {
-        setLightTheme(prevLightTheme => !prevLightTheme)
-    }
-    console.log(lightTheme)
-    return (
-        <ThemeContext.Provider value={lightTheme}>
-            <ThemeUpdateContext.Provider value={toggleTheme}>
-                {children}
-            </ThemeUpdateContext.Provider>
+const ThemeContext = () => {
+    const themes = {
+      light: {
+        foreground: "#000000",
+        background: "#eeeeee"
+      },
+      dark: {
+        foreground: "#ffffff",
+        background: "#222222"
+      }
+    };
+    
+    const ThemeContext = React.createContext(themes.light);
+    
+    function App() {
+      return (
+        <ThemeContext.Provider value={themes.dark}>
+          <Toolbar />
         </ThemeContext.Provider>
-    )
+      );
+    }
+    
+    function Toolbar(props) {
+      return (
+        <div>
+          <ThemedButton />
+        </div>
+      );
+    }
+    
+    function ThemedButton() {
+      const theme = useContext(ThemeContext);
+      return (
+        <button style={{ background: theme.background, color: theme.foreground }}>
+          I am styled by theme context!
+        </button>
+      );
+    }
 }
+
+export default ThemeContext

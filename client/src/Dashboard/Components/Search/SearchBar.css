@@ -1,0 +1,46 @@
+.SearchBar { 
+    margin-top: 2em;
+    margin-bottom: 2em;
+    display: flex;
+    justify-content: center;
+    height: 55px;
+    align-self: center;
+    flex-grow: 2;
+    width: 100%;
+    outline: none;
+    opacity: 1;
+    cursor: pointer;
+    
+}
+
+.SearchBar input {
+    padding-left: 1em;
+    width: 25em;
+    border-radius: 20px 0 0 20px;
+    background-color: transparent;
+    border-color: rgba(0, 0, 0, 0.75);
+    font-size: 24px;
+    cursor: pointer;
+    border-right: none;
+}
+.SearchBar input::placeholder {
+    color: rgba(0, 0, 0, 0.6);
+}
+.SearchBar input:focus {
+    outline: none !important;
+    border-color: none;
+    box-shadow: none;
+}
+.SearchBar button {
+    background-color: transparent;
+    border-color: rgba(0, 0, 0, 0.75);
+    border-left: none;
+    border-radius: 0 20px 20px 0;
+    width: 7em;
+    cursor: pointer;
+    
+}
+
+.searchicon {
+    font-size: 2em;
+}

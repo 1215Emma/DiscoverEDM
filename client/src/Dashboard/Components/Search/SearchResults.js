@@ -13,7 +13,7 @@ const SearchResults = ({ track }) => {
                     <div className="songCards">
                         {itemArr.map(results => {
                             return (
-                                <div className="songsInAlbum">
+                                <div className="songsInAlbum" key={results.id}>
                                     <div className="songsInAlbumCombined">
                                         <div className="songName">{results.name}</div>
                                         <div className="artistName">{results.artists[0].name}</div>

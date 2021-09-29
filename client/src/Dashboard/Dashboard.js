@@ -1,30 +1,28 @@
-import React from 'react'
-import { DashboardProvider } from './Helper/DashboardContext'
-import SearchBar from './Components/Search/SearchBar'
-import Searching from './Components/Search/SearchResultsAlbumButtons'
-import { AlbumButtonsProvider } from './Helper/SearchingContext'
-import Sidebar from './Components/Sidebar/Sidebar'
-import DisplayArtistBanner from './Components/ArtistBanner/DisplayArtistBanner'
-import HideArtistBanner from './Components/ArtistBanner/HideArtistBanner'
-import PlayBar from './Components/PlayBar/PlayBar'
+import React, { useState } from 'react'
+import { Sidebar } from './Components/Sidebar/Sidebar'
+import  { MusicContainer } from './Components/Music Data Display/MusicContainer'
+import { PlayBar } from './Components/PlayBar/PlayBar'
+import { Login } from '../Dashboard/Components/Login/Login'
 
-export default function Dashboard() {  
-    
-
-    return (      
+export default function Dashboard({isLoggedIn}) {  
+const [artistIdentifier, setArtistIdentifier] = useState("")    
+const [playbarMetadata, setPlaybarMetadata] = useState('')
+const [currentTrack, setCurrentTrack] = useState([])
+const [queueList, setQueueList] = useState([])
+    console.log(isLoggedIn)
+    if (isLoggedIn) {
+        return (      
             <div className='Dashboard'> 
-            <div className="dashboard-no-sidebar" >         
-                <DashboardProvider>
-                <Sidebar />
-                <SearchBar />
-                <DisplayArtistBanner />
-                <AlbumButtonsProvider>
-                    <Searching />    
-                    <HideArtistBanner />
-                </AlbumButtonsProvider>
-                </DashboardProvider>
-                <PlayBar />              
-            </div>
-        </div> 
-    )
+                <div className="dashboard-no-sidebar" >       
+                    <Sidebar setArtistIdentifier={setArtistIdentifier} />
+                    <MusicContainer artistIdentifier={artistIdentifier} setPlaybarMetadata={setPlaybarMetadata} setCurrentTrack={setCurrentTrack} currentTrack={currentTrack} setQueueList={setQueueList}/>                
+                    <PlayBar playbarMetadata={playbarMetadata} currentTrack={currentTrack} queueList={queueList}/> 
+                </div>
+            </div> 
+        )
+    }
+    else {
+        <Login />
+    }
 }
+

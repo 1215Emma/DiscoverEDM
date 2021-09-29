@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import axios from "axios";
 
-export default function UseAuth(code, credentials) {
-    console.log(credentials)
+export default function UseAuth(code) {
+    const credentials = JSON.parse(localStorage.getItem("credentials"))
     useEffect(() => {    
-        if (credentials == null | credentials === null) {
+        if (credentials === null) {
             axios.post('http://localhost:3001/callback/', {
             code,
             credentials,
@@ -21,17 +21,17 @@ export default function UseAuth(code, credentials) {
                 }
                 localStorage.setItem("credentials", JSON.stringify(credsObj))
                 window.history.pushState({}, null, "/")
-            
+               
             })
             .catch((err) => {
                 console.log(err)
                 window.location = "/"
-            })       
+            })        
         }
         if (credentials) {
             const refreshToken = JSON.parse(localStorage.getItem("credentials")).refreshToken;
             const timeTokenExpiresMS = JSON.parse(localStorage.getItem("credentials")).timeTokenExpiresMS;
-            if (timeTokenExpiresMS <= Date.now()) {
+            if (Date.now() >= timeTokenExpiresMS) {
                 axios.post('http://localhost:3001/refresh', {
                     refreshToken,
                 })
