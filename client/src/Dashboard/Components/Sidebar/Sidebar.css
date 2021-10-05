@@ -1,170 +1,163 @@
 .sidebar-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 15rem;
-    min-height: 100vh;
-    max-height: 100vh;
-    background-color: rgba(6, 1, 19, 1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 15rem;
+  min-height: 100vh;
+  max-height: 100vh;
+  background-color: rgba(6, 1, 19, 1);
 }
 
 .sidebar-no-user-info::-webkit-scrollbar {
-    width: 13px;
-    background: rgba(128, 128, 128, 0.75);
+  width: 13px;
+  background: rgba(128, 128, 128, 0.75);
 }
 
 .sidebar-no-user-info::-webkit-track {
-    background-color: grey;
+  background-color: grey;
 }
 
 .sidebar-no-user-info::-webkit-thumb {
-    background: #888;
+  background: #888;
 }
 
 .sidebar-no-user-info::-webkit-thumb:hover {
-    background: #555;
+  background: #555;
 }
 .user_info {
-    margin-left: 0em;
-    margin-top: 2em;
+  margin-left: 0em;
+  margin-top: 2em;
 }
 
 .user_button {
-    display: flex;
-    background-color: rgba(0, 0, 0, 0);
-    border-style: none;
-    width: 100%;
-    height: 7em;
-    
-} 
-
-.greeting { 
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 1.3em;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-}   
-
-.profile_picture {
-    width: 6em;
-    height: 6em;
-    margin-right: 1em;
-    margin-left: auto;
-    border-radius: 50%;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0);
+  border-style: none;
+  width: 100%;
+  height: 7em;
 }
 
-.SearchBar { 
-    display: flex;
-    justify-content: center;
-    height: 25px;
-    align-self: center;
-    flex-grow: 2;
-    width: 100%;
-    outline: none;
-    opacity: 1;
-    
+.greeting {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.3em;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.profile_picture {
+  width: 6em;
+  height: 6em;
+  margin-right: 1em;
+  margin-left: auto;
+  border-radius: 50%;
+}
+
+.SearchBar {
+  display: flex;
+  justify-content: center;
+  height: 25px;
+  align-self: center;
+  flex-grow: 2;
+  width: 100%;
+  outline: none;
+  opacity: 1;
 }
 
 .SearchBar input {
-    padding-left: 1em;
-    width: 10em;
-    border-radius: 15px 0 0 15px;
-    background-color: transparent;
-    border-color: white;
-    color: white;
-    border-style: solid;
-    font-size: 12px;
-    border-right: none;
+  padding-left: 1em;
+  width: 10em;
+  border-radius: 15px 0 0 15px;
+  background-color: transparent;
+  border-color: white;
+  color: white;
+  border-style: solid;
+  font-size: 12px;
+  border-right: none;
 }
 .SearchBar input::placeholder {
-    color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.6);
 }
 .SearchBar input:focus {
-    outline: none !important;
-    border-color: none;
-    box-shadow: none;
+  outline: none !important;
+  border-color: none;
+  box-shadow: none;
 }
 .SearchBar button {
-    background-color: transparent;
-    border-color: white;
-    border-style: solid;
-    border-left: none;
-    border-radius: 0 15px 15px 0;
-    width: 2em;
-    cursor: pointer;
-    
+  background-color: transparent;
+  border-color: white;
+  border-style: solid;
+  border-left: none;
+  border-radius: 0 15px 15px 0;
+  width: 2em;
+  cursor: pointer;
 }
 .searchicon {
-    font-size: 1em;
-    color: white;
+  font-size: 1em;
+  color: white;
 }
 
 .users-playlists-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 15em;
-    overflow: auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 15em;
+  overflow: auto;
 }
 
 .home-redirect {
-    background-color: transparent;
-    border-style: none;
-    display: flex;
-    justify-content: center;
-    margin-top: 0.25em;
+  background-color: transparent;
+  border-style: none;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.25em;
 }
 .home-redirect h1 {
-    color: white;
-    font-size: 16px;
-    padding: 0;
-    margin-bottom: 0;
+  color: white;
+  font-size: 16px;
+  padding: 0;
+  margin-bottom: 0;
 }
 .home-redirect h1:hover {
-    color: rgba(255, 255, 255, 0.5);
-    cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
 }
 .users-playlists-container::-webkit-scrollbar {
-    width: 13px;
-    
-    background: rgba(0,0,0, 1);
+  width: 13px;
 }
-.users-playlists-container::-webkit-scrollbar-track {
-    background: rgba(0,0,0,1);
-}
+
 .users-playlists-container::-webkit-scrollbar-thumb {
-    background: #888;
+  background: #888;
 }
 
 .users-playlists-container::-webkit-scrollbar-thumb:hover {
-    background: #555;
+  background: #555;
 }
 .users-playlists-container h1 {
-    color: white;
-    font-size: 1em;
-    align-self: center;
+  color: white;
+  font-size: 1em;
+  align-self: center;
 }
 .sidebar-line-style {
-    color: white;
-    top: 0;
-    bottom: 0;
-    padding-left: 1.5em;
-    margin: 0;
-    font-size: 1em;
+  color: white;
+  top: 0;
+  bottom: 0;
+  padding-left: 1.5em;
+  margin: 0;
+  font-size: 1em;
 }
 .users-playlists {
-    color: white;
-    background-color: transparent;
-    border-style: none;
-    width: 100%;
+  color: white;
+  background-color: transparent;
+  border-style: none;
+  width: 100%;
 }
 .users-playlists h1 {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 1em;
-    width: 100%;
-    margin: 0;
-    padding: 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1em;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 .users-playlists:hover {
-    background-color: rgba(55, 55, 55, 0.5);
+  background-color: rgba(55, 55, 55, 0.5);
 }

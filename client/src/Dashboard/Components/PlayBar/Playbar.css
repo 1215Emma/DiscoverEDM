@@ -1,159 +1,159 @@
 .playbar {
-    position: fixed;
-    min-height: 5.5em;
-    background-color: rgb(6, 1, 19);
-    bottom: 0;
-    left: 0;
-    right: 0;
-    fill: white;
+  position: fixed;
+  min-height: 5.5em;
+  background-color: rgb(6, 1, 19);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  fill: white;
 }
 
 .playbar-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 5.5em;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 5.5em;
+  width: 100%;
 }
 .playbar-current-track {
-    order: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-grow: 0;
-    flex-basis: auto;
-    min-width: 15%;
-    
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 0;
+  flex-basis: auto;
+  min-width: 15%;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .now-playing-album-cover {
-    height: 15rem;
-    width: 15rem;
-    padding-bottom: 0.25em
+  height: 15rem;
+  width: 15rem;
+  margin-bottom: 1.5em;
+  margin-top: -3.25em;
 }
 .now-playing-track {
-    color: white;
-    font-size: 16px;
-    width: 100%;
-    padding-left: 0.5em;
-    padding-top: 1.5em;
+  color: white;
+  font-size: 13px;
+  width: 100%;
+  height: 100%;
+  padding-left: 1.25em;
+  padding-top: 0.25em;
 }
 .now-playing-artists {
-    color: white;
-    font-size: 16px;
-    width: 100%;
-    margin-bottom: 16.5em;
-    padding-left: 0.5em;
+  color: white;
+  font-size: 11px;
+  width: 100%;
+  margin-bottom: 20em;
+  padding-left: 1.5em;
 }
 .playbar-play-controls {
-    order: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    min-width: 20%;
-    flex-grow: 0;
-    padding-left: 3%;
+  order: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  min-width: 20%;
+  flex-grow: 0;
+  padding-left: 3%;
 }
-.playbar-play-icons { 
-    display: flex;
-    justify-content: space-around;
-    margin-left: 3em;
-    margin-right: 3em;
-    margin-bottom: 0.5em;
-    
+.playbar-play-icons {
+  display: flex;
+  justify-content: space-around;
+  margin-left: 3em;
+  margin-right: 3em;
+  margin-bottom: 0.5em;
 }
 .shuffle-button {
-    background-color: transparent;
-    border-style: none;
+  background-color: transparent;
+  border-style: none;
 }
 .shuffle-button-icon {
-    font-size: 25px;
+  font-size: 25px;
 }
 
 .previous-button {
-    background-color: transparent;
-    border-style: none;
+  background-color: transparent;
+  border-style: none;
 }
 .previous-button-icon {
-    font-size: 25px;
+  font-size: 25px;
 }
 .track-play-button {
-    font-size: 25px;
+  font-size: 25px;
 }
 .track-pause-button {
-    font-size: 25px;
+  font-size: 25px;
 }
 .pause-play-button {
-    background-color: transparent;
-    border-style: none;
+  background-color: transparent;
+  border-style: none;
 }
 .next-button {
-    background-color: transparent;
-    border-style: none;
+  background-color: transparent;
+  border-style: none;
 }
 .next-button-icon {
-    font-size: 25px;
+  font-size: 25px;
 }
 .repeat-button {
-    background-color: transparent;
-    border-style: none;
+  background-color: transparent;
+  border-style: none;
 }
 .repeat-button-icon {
-    font-size: 25px;
-
+  font-size: 25px;
 }
 .song-length-time-start {
-    padding-right: 1em;
+  padding-right: 1em;
 }
-.song-length-time  {
-    padding-left: 1em;
+.song-length-time {
+  padding-left: 1em;
 }
 .song-length-number {
-    color: white;
+  color: white;
 }
 .song-length-bar {
-    display: flex;
-    flex-direction: row;
-    color: white;
-    height: 0.5em;
-    min-width: 180px;
-    width: 100%;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  height: 0.5em;
+  min-width: 180px;
+  width: 100%;
+  align-items: center;
 }
 .song-length-slider {
--webkit-appearance: none;
+  -webkit-appearance: none;
   width: 100%;
   height: 7px;
-  border-radius: 5px;  
+  border-radius: 5px;
   background: rgb(63, 60, 60);
   outline: none;
   opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
 }
 
 .song-length-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 13px;
-    height: 13px;
-    appearance: none;
-    border-radius: 50%;
-    background: white;
+  -webkit-appearance: none;
+  width: 13px;
+  height: 13px;
+  appearance: none;
+  border-radius: 50%;
+  background: white;
 }
 .playbar-volume-container {
-    order: 3;
-    min-width: 15%;
-    display: flex; 
-    justify-content: end;
-    flex-grow: 0;
-    margin-right: 3em;
+  order: 3;
+  min-width: 15%;
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 0;
+  margin-right: 3em;
 }
 
 .volume-button {
-    font-size: 25px;   
-    width: 1em;
-    margin-top: 1.2em;
-    align-self: flex-start;
+  font-size: 25px;
+  width: 1em;
+  margin-top: 1.2em;
+  align-self: flex-start;
 }
 
 .volume-slider {
@@ -164,19 +164,19 @@
   margin-right: 5em;
   margin-left: 1em;
   align-items: center;
-  border-radius: 5px;  
+  border-radius: 5px;
   background: rgb(63, 60, 60);
   outline: none;
   opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
 }
 
 .volume-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 13px;
-    height: 13px;
-    appearance: none;
-    border-radius: 50%;
-    background: white;
+  -webkit-appearance: none;
+  width: 13px;
+  height: 13px;
+  appearance: none;
+  border-radius: 50%;
+  background: white;
 }
