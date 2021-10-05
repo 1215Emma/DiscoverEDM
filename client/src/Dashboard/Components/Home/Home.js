@@ -7,6 +7,7 @@ export const Home = ({
   setTrackClicked,
   setShowHome,
 }) => {
+  // window.history.pushState({ urlPath: "/Spectral-Music" }, "", "/Spectral-Music");
   const [topArtists, setUsersTopArtists] = useState([]);
   const [playlists, setPlaylists] = useState([]);
   useEffect(() => {

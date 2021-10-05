@@ -1,6 +1,8 @@
+require('dotenv').config()
 const SpotifyWebApi = require("./node_modules/spotify-web-api-node");
 const express = require("./node_modules/express");
 const cors = require("cors");
+
 
 const scopes = [
   "ugc-image-upload",
@@ -26,8 +28,8 @@ const scopes = [
 
 const spotifyApi = new SpotifyWebApi({
   redirectUri: "http://localhost:3000/callback/",
-  clientId: "c0024b0181434c5c848e7f5bf8a7afe0",
-  clientSecret: "58a04698e6f64fd787c8cbcf08e40824",
+  clientId: process.env.SERVER_CLIENT_ID,
+  clientSecret: process.env.SERVER_CLIENT_SECRET,
 });
 
 const app = express();
@@ -56,7 +58,6 @@ app.post("/callback/", (req, res) => {
       })
       .catch((error) => {
         console.error("Error getting Tokens:", error);
-        // res.send(`Error getting Tokens: ${error}`);
       });
   } else {
     console.log("you got a token");
@@ -65,16 +66,14 @@ app.post("/callback/", (req, res) => {
 
 app.post("/refresh", (req, res) => {
   const refreshToken = req.body.refreshToken;
-  console.log(refreshToken);
-
+  console.log(refreshToken, "REFRESHTOKEN");
   const spotifyApi = new SpotifyWebApi({
     redirectUri: "http://localhost:3000/callback/",
-    clientId: "c0024b0181434c5c848e7f5bf8a7afe0",
-    clientSecret: "58a04698e6f64fd787c8cbcf08e40824",
-    refreshToken,
+    clientId: process.env.SERVER_CLIENT_ID,
+    clientSecret: process.env.SERVER_CLIENT_SECRET,
+    refreshToken
   });
-  spotifyApi
-    .refreshAccessToken()
+  spotifyApi.refreshAccessToken()
     .then((data) => {
       console.log(res.data);
       spotifyApi.setAccessToken(data.body["access_token"]);

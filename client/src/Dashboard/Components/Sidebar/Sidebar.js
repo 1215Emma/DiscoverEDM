@@ -3,7 +3,7 @@ import TimeOfDayGreeting from "./TimeOfDayGreeting";
 import { currentUser, usersPlaylists } from "../../../lib/api";
 import "./Sidebar.css";
 import { RiSearchLine } from "react-icons/ri";
-export const Sidebar = ({ setArtistIdentifier, accessToken, setShowHome }) => {
+export const Sidebar = ({ setArtistIdentifier, accessToken, setTrackClicked, setShowHome }) => {
   const [userData, setUserData] = useState([]);
   const [playlists, setPlaylists] = useState([]);
   const [search, setSearch] = useState("");
@@ -11,7 +11,8 @@ export const Sidebar = ({ setArtistIdentifier, accessToken, setShowHome }) => {
     currentUser(accessToken, setUserData);
     usersPlaylists(accessToken, setPlaylists);
   }, [accessToken]);
-
+  console.log(search)
+  
   return (
     <div className="sidebar-container">
       <div className="user_info">
@@ -19,11 +20,13 @@ export const Sidebar = ({ setArtistIdentifier, accessToken, setShowHome }) => {
           <div className="greeting">
             {TimeOfDayGreeting()} {userData.firstName}
           </div>
-          <img
-            src={userData.profilePicture}
-            alt=""
-            className="profile_picture"
-          />
+          <div className="pfp-container">
+            <img
+              src={userData.profilePicture}
+              alt=""
+              className="profile_picture"
+            />
+          </div>
         </button>
       </div>
       <div className="navigation-bar">
@@ -34,14 +37,16 @@ export const Sidebar = ({ setArtistIdentifier, accessToken, setShowHome }) => {
             defaultValue={search}
             onChange={(searchVal) => setSearch(searchVal.target.value)}
           />
-          <button type="submit">
-            <RiSearchLine
-              className="searchicon"
-              onClick={(event) => {
-                event.preventDefault();
-                setArtistIdentifier(search);
-              }}
-            />
+          <button
+            type="submit"
+            onClick={(event) => {
+              event.preventDefault();
+              setArtistIdentifier(search);
+              setShowHome(false);
+              setTrackClicked(false);
+            }}
+          >
+            <RiSearchLine className="searchicon" />
           </button>
         </form>
       </div>

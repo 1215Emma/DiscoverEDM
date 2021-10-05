@@ -24,47 +24,47 @@ const App = () => {
   const [trackClicked, setTrackClicked] = useState(false);
   const [queueIndex, setQueueIndex] = useState(0);
   const [showHome, setShowHome] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false)
   const storageCredentials = JSON.parse(localStorage.getItem("credentials"));
-
-  if (code || storageCredentials === null) {
-    UseAuth(code);
-  }
+  console.log(artistIdentifier, "ARTISTIDENTIFIER")
   const isLoggedIn = () => {
-    if (storageCredentials !== null) {
-      UseAuth();
-      const accessToken = storageCredentials.accessToken;
-      return (
-        <div className="Dashboard">
+    if (storageCredentials === null) {
+      UseAuth(code, setLoggedIn);
+    } else {
+        UseAuth();
+        const accessToken = storageCredentials.accessToken;
+        return (
+          <div className="Dashboard">
           <div className="dashboard-no-sidebar">
             <Sidebar
               setArtistIdentifier={setArtistIdentifier}
               accessToken={accessToken}
               setTrackClicked={setTrackClicked}
               setShowHome={setShowHome}
-            />
+              />
 
             {!showHome ? (
               <MusicContainer
-                artistIdentifier={artistIdentifier}
-                setPlaybarArtistData={setPlaybarArtistData}
-                playbarArtistData={playbarArtistData}
-                accessToken={accessToken}
-                setPlayState={setPlayState}
-                setQueueIndex={setQueueIndex}
-                playState={playState}
-                trackClicked={trackClicked}
-                setTrackClicked={setTrackClicked}
-                setShowHome={setShowHome}
+              artistIdentifier={artistIdentifier}
+              setPlaybarArtistData={setPlaybarArtistData}
+              playbarArtistData={playbarArtistData}
+              accessToken={accessToken}
+              setPlayState={setPlayState}
+              setQueueIndex={setQueueIndex}
+              playState={playState}
+              trackClicked={trackClicked}
+              setTrackClicked={setTrackClicked}
+              setShowHome={setShowHome}
               />
-            ) : (
-              <Home
+              ) : (
+                <Home
                 accessToken={accessToken}
                 setArtistIdentifier={setArtistIdentifier}
                 setTrackClicked={setTrackClicked}
                 showHome={showHome}
                 setShowHome={setShowHome}
-              />
-            )}
+                />
+                )}
             <PlayBar
               playbarArtistData={playbarArtistData}
               accessToken={accessToken}
@@ -74,45 +74,15 @@ const App = () => {
               setQueueIndex={setQueueIndex}
               queueIndex={queueIndex}
               trackClicked={trackClicked}
-            />
+              />
           </div>
         </div>
       );
-    } else {
-      return <Login />;
     }
   };
-  return <>{isLoggedIn()}</>;
+  return (
+    <> { code || storageCredentials !== null ? isLoggedIn(): <Login />}</>
+    )
+  
 };
 export default App;
-//     if (code && JSON.parse(localStorage.getItem("credentials") == null)) {
-//         UseAuth(code)
-//     }
-//     if (JSON.parse(localStorage.getItem("credentials")) !== null) {
-//         if (JSON.parse(localStorage.getItem("credentials")) == null) {
-//             return (
-//             <Login />
-//             )
-//         }
-//         else {
-//             const storageCredentials = JSON.parse(localStorage.getItem("credentials"))
-//             const accessToken = storageCredentials.accessToken
-//             return (
-//             <div className='Dashboard'>
-//                 <div className="dashboard-no-sidebar" >
-//                     <Sidebar setArtistIdentifier={setArtistIdentifier} accessToken={accessToken} />
-//                     <MusicContainer artistIdentifier={artistIdentifier} setPlaybarMetadata={setPlaybarMetadata} setCurrentTrack={setCurrentTrack} currentTrack={currentTrack} setQueueList={setQueueList} accessToken={accessToken}/>
-//                     <PlayBar playbarMetadata={playbarMetadata} currentTrack={currentTrack} queueList={queueList} accessToken={accessToken}/>
-//                 </div>
-//             </div>
-//         )
-//         }
-//     }
-//     else {
-//         return (
-
-//         <Login />
-
-//         )
-//     }
-// }

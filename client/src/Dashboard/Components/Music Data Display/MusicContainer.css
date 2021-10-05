@@ -32,6 +32,8 @@
   order: 2;
   display: flex;
   flex-direction: column;
+  max-width: 600px;
+  min-width: 500px;
 }
 
 .music-container-albums {
@@ -39,6 +41,11 @@
   margin-bottom: 3rem;
   display: flex;
   flex-direction: column;
+}
+.music-track-album-container {
+  order: 4;
+  display: flex;
+  flex-direction: row;
 }
 /* Music Container Header Child Component*/
 .music-container-header {
@@ -61,19 +68,44 @@
 
 .music-image {
   order: 1;
-  margin-bottom: 0.5em;
-  margin-left: 5%;
-  height: 240px;
-  width: 240px;
+  
+  height: 160px;
+  width: 160px;
   border-radius: 50%;
 }
-
+.music-container-header-album {
+  order: 1;
+  width: 75%;
+  min-width: 500px;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-bottom: 0.5em;
+  padding-top: 1em;
+  margin-left: 2em;
+  cursor: pointer;
+  border-radius: 10%;
+}
+.music-header-album {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+.music-image-album {
+  order: 1;
+  margin-left: 5%;
+  height: 160px;
+  width: 160px;
+  padding: 0.5em;
+  background-color:rgba(10, 19, 42);
+}
 .music-name {
   order: 2;
   width: 100%;
-  font-size: 3em;
+  font-size: 4em;
   color: white;
-  padding-left: 10%;
+  padding-left: 2.5%;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-weight: bold;
   align-self: center;
@@ -81,10 +113,9 @@
 
 /* Music Container Albums Child Component*/
 .music-container-albums h1 {
-  font-size: 32px;
+  font-size: 24px;
   color: white;
   padding-left: 0.5em;
-  padding-top: 1em;
 }
 .music-container-albums-main {
   display: flex;
@@ -116,19 +147,19 @@
 }
 
 .music-album-cover {
-  height: 160px;
-  width: 160px;
+  height: 120px;
+  width: 120px;
 }
 
 .music-album-name {
   margin-top: 1em;
-  font-size: 16px;
+  font-size: 12px;
   color: rgba(255, 255, 255, 0.8);
 }
 
 /* Music Container Tracks Child Component */
 .music-container-tracks h1 {
-  font-size: 32px;
+  font-size: 24px;
   color: white;
   padding-left: 1em;
 }
@@ -142,6 +173,9 @@
   border-style: none;
   display: flex;
   flex-direction: row;
+  height: 75px;
+  margin-bottom: 1em;
+  
 }
 
 .music-track-buttons-container:hover {
@@ -151,35 +185,37 @@
 .music-track-info-container {
   display: flex;
   flex-direction: row;
-  padding-top: 1em;
-  padding-bottom: 1em;
-  padding-right: 2em;
-  padding-left: 1.5em;
-  min-width: 25em;
-  max-width: 25em;
+  padding-right: 0.5em;
+  padding-left: 0.5em;
+  padding-bottom: 0.5em;
+  padding-top: 0.5em;
+  min-width: 40em;
+  max-width: 40em;
+  height: 100%;
 }
 .music-track-info-container:hover {
   background-color: rgba(128, 128, 128, 0.25);
-  padding-top: 1em;
-  padding-bottom: 1em;
-  padding-left: 1.5em;
-  padding-right: 2em;
+  padding-bottom: 0.5em;
+  padding-top: 0.5em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
 }
 .music-track-hover-display {
-  height: 4em;
+  height: 100%;
   width: 3em;
+  min-width: 3em;
   display: flex;
   justify-content: center;
 }
 
 .music-track-play-button {
-  font-size: 2em;
+  font-size: 1.5em;
   align-self: center;
 }
 
 .music-track-count {
   order: 1;
-  font-size: 2em;
+  font-size: 1.5em;
   color: rgba(255, 255, 255, 0.5);
   align-self: center;
 }
@@ -195,20 +231,20 @@
 
 .music-track-name {
   order: 3;
-  flex-grow: 1;
+  /* flex-grow: 1; */
+  justify-content: space-around;
   color: rgba(255, 255, 255, 0.8);
   padding-left: 1em;
   align-self: center;
   font-weight: bold;
-  min-width: 13em;
-  max-width: 13em;
+  min-width: 20em;
+  max-width: 25em;
 }
 
 .music-track-runtime {
   order: 4;
   color: rgba(255, 255, 255, 0.8);
+  width: 100%;
   align-self: center;
-  flex-grow: 2;
-  margin-left: 2em;
-  text-align: right;
+  justify-self: flex-end;
 }

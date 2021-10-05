@@ -7,7 +7,6 @@ import { searchAlbums, searchArtists, trackData } from "../../../lib/api";
 export const MusicContainer = ({
   artistIdentifier,
   setPlaybarArtistData,
-  playbarArtistData,
   accessToken,
   setPlayState,
   setQueueIndex,
@@ -89,6 +88,8 @@ export const MusicContainer = ({
         albumClicked={albumClicked}
         albumClickedData={albumClickedData}
       />
+      <div className="music-track-album-container">
+
       <div className="music-container-tracks">
         <MusicContainerTracks
           artistData={artistData}
@@ -99,7 +100,7 @@ export const MusicContainer = ({
           setPlayState={setPlayState}
           setQueueIndex={setQueueIndex}
           setTrackClicked={setTrackClicked}
-        />
+          />
       </div>
       <div className="music-container-albums">
         <MusicContainerAlbums
@@ -108,7 +109,8 @@ export const MusicContainer = ({
           setAlbumClickedData={setAlbumClickedData}
           albumClicked={albumClicked}
           setTrackClicked={setTrackClicked}
-        />
+          />
+      </div>
       </div>
     </div>
   );
@@ -128,12 +130,12 @@ export const MusicContainerHeader = ({
       {artistDataInfo === undefined ? (
         <></>
       ) : albumClickedData && albumClicked ? (
-        <div className="music-container-header">
-          <div className="music-header">
+        <div className="music-container-header-album">
+          <div className="music-header-album">
             <img
               src={albumClickedData.images[0].url}
               alt=""
-              className="music-image"
+              className="music-image-album"
             />
             <div className="music-name">{albumClickedData.name}</div>
           </div>
@@ -161,7 +163,6 @@ export const MusicContainerAlbums = ({
   artistData,
   setAlbumClicked,
   setAlbumClickedData,
-  albumClicked,
   setTrackClicked,
 }) => {
   const artistAlbums = artistData.find((albums) => {
@@ -175,9 +176,10 @@ export const MusicContainerAlbums = ({
         <></>
       ) : (
         <div className="music-container-albums-main">
-          {artistAlbums.searchedAlbums.map((albums) => {
-            if (albums.name.length > 18) {
-              albums.name = albums.name.slice(0, 18) + "...";
+            {artistAlbums.searchedAlbums.map((albums) => {
+            let shortenedName = albums.name
+            if (albums.name.length > 15) {
+              shortenedName = albums.name.slice(0, 15) + "...";
             }
             return (
               <button
@@ -195,7 +197,7 @@ export const MusicContainerAlbums = ({
                     alt=""
                     className="music-album-cover"
                   />
-                  <div className="music-album-name">{albums.name}</div>
+                  <div className="music-album-name">{shortenedName}</div>
                 </div>
               </button>
             );
@@ -211,7 +213,6 @@ export const MusicContainerTracks = ({
   artistData,
   albumClicked,
   albumClickedData,
-  setPlaybarArtistData,
   setPlayState,
   setQueueIndex,
   setTrackClicked,
@@ -228,7 +229,7 @@ export const MusicContainerTracks = ({
 
   return (
     <>
-    <h1>Popular Songs</h1>
+    <h1>Popular</h1>
     <div className="music-tracks-container-main">
       {artistTopTracks === undefined ? (
         <></>

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import axios from "axios";
 
-export default function UseAuth(code) {
+export default function UseAuth(code, setLoggedIn) {
   const credentials = JSON.parse(localStorage.getItem("credentials"));
   useEffect(() => {
     if (credentials === null) {
@@ -11,6 +11,7 @@ export default function UseAuth(code) {
           credentials,
         })
         .then((res) => {
+          console.log(res)
           const { accessToken, expiresIn, refreshToken } = res.data || {};
           const credsObj = {
             accessToken,
@@ -20,6 +21,7 @@ export default function UseAuth(code) {
           };
           localStorage.setItem("credentials", JSON.stringify(credsObj));
           window.history.pushState({}, null, "/");
+          setLoggedIn(true)
         })
         .catch((err) => {
           console.log(err);
@@ -34,8 +36,7 @@ export default function UseAuth(code) {
         localStorage.getItem("credentials")
       ).timeTokenExpiresMS;
       if (Date.now() >= timeTokenExpiresMS) {
-        axios
-          .post("http://localhost:3001/refresh", {
+        axios.post("http://localhost:3001/refresh", {
             refreshToken,
           })
           .then((res) => {
