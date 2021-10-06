@@ -3,7 +3,7 @@
 Spectral Music is a spotify clone that has a different UI layout that you're use to! 
 This project was build using mostly React.js and Node/Express.js
 
-![Login Page](/WebApp Images/Home.png)
+![Login Page](./WebAppImages/Home.png)
 # Features
 
 - Search and view your favorite Artists and albums 
